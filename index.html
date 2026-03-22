@@ -154,8 +154,11 @@
             background: #fff;
             border: 1px solid var(--border);
             border-radius: 14px;
-            padding: 18px 20px;
+            padding: 14px 16px;
             transition: border-color 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: stretch;
+            gap: 12px;
         }
 
         .product-card:hover {
@@ -167,33 +170,26 @@
             display: none;
         }
 
-        .card-top {
+        .card-left-col {
             display: flex;
             align-items: flex-start;
-            justify-content: space-between;
-            gap: 12px;
-            margin-bottom: 12px;
-        }
-
-        .product-main {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            min-width: 0;
+            gap: 8px;
+            flex-shrink: 0;
         }
 
         .rank-badge {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #fff;
             flex-shrink: 0;
             background: #5c5c58;
+            margin-top: 16px;
         }
 
         .rank-1 { background: #3d3d3a; }
@@ -203,96 +199,118 @@
         .rank-5,
         .rank-6 { background: #8a8a84; }
 
-        .product-info {
+        .product-thumb {
+            width: 60px;
+            height: 60px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            background: #e4e4e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .product-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-thumb-emoji {
+            font-size: 1.65rem;
+            line-height: 1;
+        }
+
+        .card-center-col {
+            flex: 1;
             min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+            padding: 2px 0;
         }
 
         .product-info h3 {
-            font-size: 1.05rem;
-            font-weight: 600;
+            font-size: 1.02rem;
+            font-weight: 700;
             color: var(--text);
-            margin-bottom: 4px;
             line-height: 1.35;
         }
 
-        .product-meta {
-            font-size: 0.78rem;
+        .product-subline {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-top: 5px;
+        }
+
+        .product-subline .product-brand {
+            font-weight: 500;
+            color: #5c5c58;
+        }
+
+        .product-subline .product-pack {
+            font-weight: 400;
             color: var(--text-muted);
         }
 
-        .score-section {
-            flex-shrink: 0;
+        .product-subline .meta-sep {
+            margin: 0 5px;
+            color: #c8c8c0;
+            font-weight: 400;
+        }
+
+        .card-mid-right {
+            flex: 0 1 auto;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .score-gauge svg {
-            display: block;
-        }
-
-        .gauge-score-num {
-            font-size: 17px;
-            font-weight: 700;
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-
-        .gauge-unit {
-            font-size: 10px;
-            font-weight: 600;
-            font-family: 'Noto Sans KR', sans-serif;
-        }
-
-        .grade-badge {
-            display: inline-block;
-            font-size: 0.72rem;
-            font-weight: 600;
-            padding: 3px 8px;
-            border-radius: 6px;
-        }
-
-        .card-details {
-            margin-top: 10px;
-            padding-top: 12px;
-            border-top: 1px solid #efefec;
-            display: flex;
-            flex-direction: column;
+            align-items: flex-end;
+            justify-content: flex-start;
             gap: 8px;
-            font-size: 0.8rem;
+            min-width: 0;
+            max-width: 40%;
+            padding-left: 10px;
+            border-left: 1px solid #efefec;
+        }
+
+        .card-details-compact {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            font-size: 0.68rem;
+            color: #5a5a55;
+            line-height: 1.35;
+            text-align: right;
+            width: 100%;
+        }
+
+        .detail-row-compact strong {
             color: #4a4a45;
-            line-height: 1.45;
-        }
-
-        .detail-row strong {
-            color: #33332f;
             font-weight: 600;
-            margin-right: 6px;
+            margin-right: 4px;
         }
 
-        .detail-row.cert-line {
+        .detail-row-compact.cert-line-compact {
             display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .detail-row.cert-line strong {
-            flex-shrink: 0;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
         }
 
         .cert-badges {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 2px;
+            gap: 4px;
+            justify-content: flex-end;
         }
 
         .cert-badge {
-            font-size: 0.68rem;
+            font-size: 0.62rem;
             font-weight: 600;
-            padding: 3px 8px;
-            border-radius: 6px;
+            padding: 2px 6px;
+            border-radius: 4px;
         }
 
         .cert-organic {
@@ -312,7 +330,37 @@
 
         .cert-none {
             color: var(--text-muted);
-            font-size: 0.8rem;
+            font-size: 0.68rem;
+        }
+
+        .score-block {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        .final-score-num {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .final-score-unit {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-left: 2px;
+        }
+
+        .grade-badge {
+            display: inline-block;
+            font-size: 0.68rem;
+            font-weight: 600;
+            padding: 2px 7px;
+            border-radius: 6px;
         }
 
         .grade-excellent {
@@ -331,23 +379,24 @@
         }
 
         .coupang-btn {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            width: 100%;
-            padding: 12px 16px;
+            align-self: flex-end;
+            min-width: 44px;
+            padding: 10px 14px;
             background: var(--btn-coupang);
             color: #fff;
             border: none;
-            border-radius: 10px;
-            font-size: 0.92rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
             font-weight: 600;
             font-family: inherit;
             cursor: pointer;
             text-decoration: none;
             transition: background 0.2s, box-shadow 0.2s;
-            margin-top: 14px;
+            flex-shrink: 0;
+            margin-top: 2px;
         }
 
         .coupang-btn:hover {
@@ -415,111 +464,140 @@
     </div>
 
     <script>
+        const CATEGORY_EMOJI = {
+            가공육: '🥓',
+            음료: '🧃'
+        };
+
         const products = [
             {
-                name: '목우촌 주부9단 프랑크',
+                name: '목우촌 주부9단 그릴후랑크',
+                packSize: '200g',
                 score: 88,
                 category: '가공육',
                 brand: '목우촌',
+                image: '',
                 mainIngredient: { name: '돼지고기', percent: 82 },
                 additives: '아질산나트륨·인산염',
                 certifications: ['무항생제']
             },
             {
-                name: '삼성 무항생제 한돈 비엔나',
+                name: '삼성 무항생제 한돈 비엔나소시지',
+                packSize: '180g',
                 score: 84,
                 category: '가공육',
                 brand: '삼성',
+                image: '',
                 mainIngredient: { name: '돼지고기', percent: 75 },
                 additives: '아질산나트륨·인산염',
                 certifications: ['무항생제']
             },
             {
-                name: '동원 리얼 치킨 소시지',
+                name: '동원 리얼 치킨 비엔나소시지',
+                packSize: '150g',
                 score: 79,
                 category: '가공육',
                 brand: '동원',
+                image: '',
                 mainIngredient: { name: '닭고기', percent: 68 },
                 additives: 'MSG·아질산나트륨·착색료',
                 certifications: []
             },
             {
                 name: 'CJ 스팸 클래식',
+                packSize: '340g',
                 score: 61,
                 category: '가공육',
                 brand: 'CJ',
+                image: '',
                 mainIngredient: { name: '돼지고기', percent: 52 },
                 additives: '아질산나트륨·인산염·MSG·착색료·보존료',
                 certifications: []
             },
             {
-                name: '롯데 의성마늘 햄',
+                name: '롯데 의성마늘햄',
+                packSize: '200g',
                 score: 82,
                 category: '가공육',
                 brand: '롯데',
+                image: '',
                 mainIngredient: { name: '돼지고기', percent: 70 },
                 additives: '아질산나트륨·인산염',
                 certifications: []
             },
             {
                 name: '하림 닭가슴살 소시지',
+                packSize: '150g',
                 score: 86,
                 category: '가공육',
                 brand: '하림',
+                image: '',
                 mainIngredient: { name: '닭고기', percent: 85 },
                 additives: '인산염',
                 certifications: ['무항생제']
             },
             {
-                name: '제주 감귤 100% 착즙주스',
+                name: '제주 100% 감귤착즙주스',
+                packSize: '1000ml',
                 score: 93,
                 category: '음료',
                 brand: '제주',
+                image: '',
                 mainIngredient: { name: '감귤과즙', percent: 100 },
                 additives: '',
                 certifications: ['유기농']
             },
             {
-                name: '롯데 칠성사이다',
+                name: '롯데칠성 칠성사이다',
+                packSize: '500ml',
                 score: 55,
                 category: '음료',
-                brand: '롯데',
+                brand: '롯데칠성',
+                image: '',
                 mainIngredient: { name: '탄산수', percent: null },
                 additives: '액상과당·구연산·향료',
                 certifications: []
             },
             {
-                name: '서울우유 흰우유',
+                name: '서울우유협동조합 흰우유',
+                packSize: '1000ml',
                 score: 90,
                 category: '음료',
-                brand: '서울우유',
+                brand: '서울우유협동조합',
+                image: '',
                 mainIngredient: { name: '원유', percent: 100 },
                 additives: '',
                 certifications: ['HACCP']
             },
             {
-                name: '매일 바이오 요거트',
+                name: '매일유업 바이오거트 플레인',
+                packSize: '450g',
                 score: 88,
                 category: '음료',
-                brand: '매일',
+                brand: '매일유업',
+                image: '',
                 mainIngredient: { name: '원유', percent: 85 },
                 additives: '',
                 certifications: ['무항생제']
             },
             {
-                name: '코카콜라',
+                name: '코카콜라음료 코카콜라',
+                packSize: '500ml',
                 score: 48,
                 category: '음료',
-                brand: '코카콜라',
+                brand: '코카콜라음료',
+                image: '',
                 mainIngredient: { name: '탄산수', percent: null },
                 additives: '액상과당·카라멜색소·인산·향료',
                 certifications: []
             },
             {
-                name: '자연은 착즙 사과주스',
+                name: '웅진식품 자연은 사과',
+                packSize: '1000ml',
                 score: 92,
                 category: '음료',
-                brand: '자연은',
+                brand: '웅진식품',
+                image: '',
                 mainIngredient: { name: '사과과즙', percent: 100 },
                 additives: '',
                 certifications: []
@@ -536,36 +614,6 @@
             if (score >= 85) return { label: '우수', class: 'grade-excellent' };
             if (score >= 65) return { label: '양호', class: 'grade-good' };
             return { label: '주의', class: 'grade-caution' };
-        }
-
-        function gaugeStrokeColor(score) {
-            if (score >= 85) return '#1a6b3a';
-            if (score >= 65) return '#c47a15';
-            return '#c0392b';
-        }
-
-        function scoreGaugeHTML(score) {
-            const cx = 44;
-            const cy = 44;
-            const r = 34;
-            const circumference = 2 * Math.PI * r;
-            const pct = Math.min(100, Math.max(0, Number(score))) / 100;
-            const offset = circumference * (1 - pct);
-            const stroke = gaugeStrokeColor(score);
-            return `
-                <div class="score-gauge" role="img" aria-label="건강 점수 ${score}점">
-                    <svg width="88" height="88" viewBox="0 0 88 88" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#ebeae6" stroke-width="5"/>
-                        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${stroke}" stroke-width="5"
-                            stroke-linecap="round"
-                            stroke-dasharray="${circumference}"
-                            stroke-dashoffset="${offset}"
-                            transform="rotate(-90 ${cx} ${cy})"/>
-                        <text x="${cx}" y="${cy + 1}" text-anchor="middle" class="gauge-score-num" fill="#1c1c1a">${score}</text>
-                        <text x="${cx}" y="${cy + 14}" text-anchor="middle" class="gauge-unit" fill="#6b6b66">점</text>
-                    </svg>
-                </div>
-            `;
         }
 
         function formatMainIngredient(mi) {
@@ -589,8 +637,18 @@
             }).join('')}</div>`;
         }
 
-        function getCoupangUrl(productName) {
-            return 'https://www.coupang.com/np/search?q=' + encodeURIComponent(productName);
+        function getCoupangUrl(product) {
+            const q = `${product.name} ${product.packSize}`.trim();
+            return 'https://www.coupang.com/np/search?q=' + encodeURIComponent(q);
+        }
+
+        function thumbInnerHTML(product) {
+            const src = product.image && String(product.image).trim();
+            if (src) {
+                return `<img src="${src}" alt="${product.name}">`;
+            }
+            const emoji = CATEGORY_EMOJI[product.category] || '📦';
+            return `<span class="product-thumb-emoji" aria-hidden="true">${emoji}</span>`;
         }
 
         function renderProducts(filteredProducts) {
@@ -617,30 +675,31 @@
 
                 const additivesLine = formatAdditives(product.additives);
                 const certHtml = renderCertBadges(product.certifications);
-                const gaugeHtml = scoreGaugeHTML(product.score);
+                const thumbHtml = thumbInnerHTML(product);
 
                 card.innerHTML = `
-                    <div class="card-top">
-                        <div class="product-main">
-                            <span class="rank-badge ${rankClass}" aria-label="순위 ${index + 1}">${index + 1}</span>
-                            <div class="product-info">
-                                <h3>${product.name}</h3>
-                                <span class="product-meta">${product.brand} · ${product.category}</span>
-                            </div>
+                    <div class="card-left-col">
+                        <span class="rank-badge ${rankClass}" aria-label="순위 ${index + 1}">${index + 1}</span>
+                        <div class="product-thumb">${thumbHtml}</div>
+                    </div>
+                    <div class="card-center-col">
+                        <div class="product-info">
+                            <h3>${product.name}</h3>
+                            <p class="product-subline"><span class="product-brand">${product.brand}</span><span class="meta-sep">·</span><span class="product-pack">${product.packSize}</span></p>
                         </div>
-                        <div class="score-section">
-                            ${gaugeHtml}
+                    </div>
+                    <div class="card-mid-right">
+                        <div class="card-details-compact">
+                            <div class="detail-row-compact"><strong>주원료</strong>${formatMainIngredient(product.mainIngredient)}</div>
+                            <div class="detail-row-compact"><strong>첨가물</strong>${additivesLine}</div>
+                            <div class="detail-row-compact cert-line-compact"><strong>인증</strong>${certHtml}</div>
+                        </div>
+                        <div class="score-block" role="group" aria-label="건강 점수 ${product.score}점">
+                            <div class="final-score-num">${product.score}<span class="final-score-unit">점</span></div>
                             <span class="grade-badge ${grade.class}">${grade.label}</span>
                         </div>
+                        <a href="${getCoupangUrl(product)}" target="_blank" rel="noopener noreferrer" class="coupang-btn">구매</a>
                     </div>
-                    <div class="card-details">
-                        <div class="detail-row"><strong>주원료</strong>${formatMainIngredient(product.mainIngredient)}</div>
-                        <div class="detail-row"><strong>첨가물</strong>${additivesLine}</div>
-                        <div class="detail-row cert-line"><strong>인증</strong>${certHtml}</div>
-                    </div>
-                    <a href="${getCoupangUrl(product.name)}" target="_blank" rel="noopener noreferrer" class="coupang-btn">
-                        🛒 쿠팡에서 구매하기
-                    </a>
                 `;
 
                 list.appendChild(card);
@@ -652,7 +711,8 @@
             const activeCategory = document.querySelector('.category-btn.active').dataset.category;
 
             let filtered = products.filter(p => {
-                const matchSearch = !searchTerm || p.name.toLowerCase().includes(searchTerm);
+                const haystack = [p.name, p.brand, p.packSize, p.category].join(' ').toLowerCase();
+                const matchSearch = !searchTerm || haystack.includes(searchTerm);
                 const matchCategory = activeCategory === '전체' || p.category === activeCategory;
                 return matchSearch && matchCategory;
             });
@@ -675,7 +735,7 @@
             });
         });
 
-        renderProducts(products);
+        filterProducts();
     </script>
 </body>
 </html>
