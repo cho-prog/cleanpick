@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>퓨어픽 - 건강 식품 랭킹</title>
+    <title>CleanPick - 건강 식품 랭킹</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -12,107 +12,138 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-page: #f7f7f5;
+            --bg-nav: #ffffff;
+            --text: #1c1c1a;
+            --text-muted: #6b6b66;
+            --border: #e4e4df;
+            --green-excellent: #1a6b3a;
+            --orange-good: #c47a15;
+            --red-caution: #c0392b;
+            --btn-coupang: #1a6b3a;
+            --btn-coupang-hover: #14532d;
+        }
+
         body {
             font-family: 'Noto Sans KR', sans-serif;
-            background: linear-gradient(160deg, #f0f4f8 0%, #e2e8f0 50%, #cbd5e1 100%);
+            background: var(--bg-page);
             min-height: 100vh;
-            padding: 32px 24px;
+            color: var(--text);
+            padding-top: 56px;
+        }
+
+        .site-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--bg-nav);
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
+        }
+
+        .nav-inner {
+            max-width: 540px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.03em;
         }
 
         .container {
             max-width: 540px;
             margin: 0 auto;
+            padding: 24px 24px 40px;
         }
 
-        /* Header */
-        .header {
-            text-align: center;
-            margin-bottom: 28px;
-        }
-
-        h1 {
-            font-size: 1.85rem;
-            font-weight: 700;
-            color: #1e293b;
-            letter-spacing: -0.02em;
-            margin-bottom: 6px;
+        .intro {
+            margin-bottom: 22px;
         }
 
         .subtitle {
             font-size: 0.9rem;
-            color: #64748b;
+            color: var(--text-muted);
             font-weight: 400;
+            line-height: 1.5;
         }
 
-        /* Search */
         .search-box {
             position: relative;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .search-box input {
             width: 100%;
-            padding: 14px 18px 14px 44px;
-            border: 2px solid #e2e8f0;
-            border-radius: 14px;
-            font-size: 1rem;
+            padding: 13px 16px 13px 42px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 0.95rem;
             font-family: inherit;
-            background: white;
+            background: #fff;
+            color: var(--text);
             transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .search-box input:focus {
             outline: none;
-            border-color: #3b82f6;
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+            border-color: #b8c4b8;
+            box-shadow: 0 0 0 3px rgba(26, 107, 58, 0.08);
         }
 
         .search-box input::placeholder {
-            color: #94a3b8;
+            color: #9c9c96;
         }
 
         .search-icon {
             position: absolute;
-            left: 18px;
+            left: 14px;
             top: 50%;
             transform: translateY(-50%);
-            color: #94a3b8;
-            font-size: 1.1rem;
+            color: #9c9c96;
+            font-size: 1rem;
         }
 
-        /* Category Buttons */
         .category-tabs {
             display: flex;
             gap: 8px;
-            margin-bottom: 24px;
+            margin-bottom: 22px;
         }
 
         .category-btn {
             flex: 1;
-            padding: 12px 16px;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            background: white;
-            font-size: 0.95rem;
+            padding: 11px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: #fff;
+            font-size: 0.9rem;
             font-weight: 500;
             font-family: inherit;
-            color: #64748b;
+            color: var(--text-muted);
             cursor: pointer;
-            transition: all 0.2s;
+            transition: border-color 0.2s, color 0.2s, background 0.2s;
         }
 
         .category-btn:hover {
-            border-color: #cbd5e1;
-            color: #475569;
+            border-color: #c8c8c2;
+            color: var(--text);
         }
 
         .category-btn.active {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            border-color: #2563eb;
-            color: white;
+            background: var(--green-excellent);
+            border-color: var(--green-excellent);
+            color: #fff;
         }
 
-        /* Product Cards */
         .product-list {
             display: flex;
             flex-direction: column;
@@ -120,17 +151,16 @@
         }
 
         .product-card {
-            background: white;
-            border-radius: 16px;
-            padding: 20px 22px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px 20px;
+            transition: border-color 0.2s, box-shadow 0.2s;
         }
 
         .product-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border-color: #d0d0ca;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
         }
 
         .product-card.hidden {
@@ -141,96 +171,101 @@
             display: flex;
             align-items: flex-start;
             justify-content: space-between;
+            gap: 12px;
             margin-bottom: 12px;
         }
 
         .product-main {
             display: flex;
-            align-items: center;
-            gap: 14px;
+            align-items: flex-start;
+            gap: 12px;
+            min-width: 0;
         }
 
         .rank-badge {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 700;
-            font-size: 1rem;
-            color: white;
+            font-size: 0.9rem;
+            color: #fff;
             flex-shrink: 0;
+            background: #5c5c58;
         }
 
-        .rank-1 { background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%); }
-        .rank-2 { background: linear-gradient(135deg, #388e3c 0%, #66bb6a 100%); }
-        .rank-3 { background: linear-gradient(135deg, #1565c0 0%, #1976d2 100%); }
-        .rank-4 { background: linear-gradient(135deg, #5e35b1 0%, #7e57c2 100%); }
-        .rank-5 { background: linear-gradient(135deg, #6d4c41 0%, #8d6e63 100%); }
-        .rank-6 { background: linear-gradient(135deg, #455a64 0%, #607d8b 100%); }
+        .rank-1 { background: #3d3d3a; }
+        .rank-2 { background: #52524e; }
+        .rank-3 { background: #6b6b66; }
+        .rank-4,
+        .rank-5,
+        .rank-6 { background: #8a8a84; }
+
+        .product-info {
+            min-width: 0;
+        }
 
         .product-info h3 {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 2px;
+            color: var(--text);
+            margin-bottom: 4px;
+            line-height: 1.35;
         }
 
         .product-meta {
-            font-size: 0.8rem;
-            color: #94a3b8;
+            font-size: 0.78rem;
+            color: var(--text-muted);
         }
 
         .score-section {
-            text-align: right;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
         }
 
-        .score-value {
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: #1e293b;
+        .score-gauge svg {
             display: block;
         }
 
-        .score-row {
-            display: flex;
-            align-items: baseline;
-            justify-content: flex-end;
-            gap: 8px;
-            flex-wrap: wrap;
+        .gauge-score-num {
+            font-size: 17px;
+            font-weight: 700;
+            font-family: 'Noto Sans KR', sans-serif;
         }
 
-        .grade-inline {
-            font-size: 0.85rem;
+        .gauge-unit {
+            font-size: 10px;
             font-weight: 600;
-            padding: 2px 8px;
-            border-radius: 6px;
+            font-family: 'Noto Sans KR', sans-serif;
         }
 
         .grade-badge {
             display: inline-block;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 8px;
-            margin-top: 4px;
+            padding: 3px 8px;
+            border-radius: 6px;
         }
 
         .card-details {
-            margin-top: 12px;
+            margin-top: 10px;
             padding-top: 12px;
-            border-top: 1px solid #f1f5f9;
+            border-top: 1px solid #efefec;
             display: flex;
             flex-direction: column;
             gap: 8px;
-            font-size: 0.82rem;
-            color: #475569;
+            font-size: 0.8rem;
+            color: #4a4a45;
             line-height: 1.45;
         }
 
         .detail-row strong {
-            color: #334155;
+            color: #33332f;
             font-weight: 600;
             margin-right: 6px;
         }
@@ -254,45 +289,45 @@
         }
 
         .cert-badge {
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: 600;
-            padding: 4px 8px;
+            padding: 3px 8px;
             border-radius: 6px;
         }
 
         .cert-organic {
-            background: rgba(22, 163, 74, 0.12);
-            color: #15803d;
+            background: rgba(26, 107, 58, 0.1);
+            color: var(--green-excellent);
         }
 
         .cert-antibiotic-free {
-            background: rgba(37, 99, 235, 0.12);
-            color: #1d4ed8;
+            background: rgba(196, 122, 21, 0.12);
+            color: var(--orange-good);
         }
 
         .cert-haccp {
-            background: rgba(124, 58, 237, 0.12);
-            color: #6d28d9;
+            background: rgba(28, 28, 26, 0.06);
+            color: #4a4a45;
         }
 
         .cert-none {
-            color: #94a3b8;
-            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
         }
 
         .grade-excellent {
-            background: rgba(34, 197, 94, 0.15);
-            color: #16a34a;
+            background: rgba(26, 107, 58, 0.12);
+            color: var(--green-excellent);
         }
 
         .grade-good {
-            background: rgba(234, 179, 8, 0.2);
-            color: #ca8a04;
+            background: rgba(196, 122, 21, 0.14);
+            color: var(--orange-good);
         }
 
         .grade-caution {
-            background: rgba(239, 68, 68, 0.15);
-            color: #dc2626;
+            background: rgba(192, 57, 43, 0.12);
+            color: var(--red-caution);
         }
 
         .coupang-btn {
@@ -302,67 +337,70 @@
             gap: 8px;
             width: 100%;
             padding: 12px 16px;
-            background: linear-gradient(135deg, #00c73c 0%, #00a32e 100%);
-            color: white;
+            background: var(--btn-coupang);
+            color: #fff;
             border: none;
-            border-radius: 12px;
-            font-size: 0.95rem;
+            border-radius: 10px;
+            font-size: 0.92rem;
             font-weight: 600;
             font-family: inherit;
             cursor: pointer;
             text-decoration: none;
-            transition: all 0.2s;
+            transition: background 0.2s, box-shadow 0.2s;
             margin-top: 14px;
         }
 
         .coupang-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(0, 199, 60, 0.35);
+            background: var(--btn-coupang-hover);
+            box-shadow: 0 4px 14px rgba(26, 107, 58, 0.25);
         }
 
         .coupang-btn:active {
-            transform: translateY(0);
+            transform: translateY(1px);
         }
 
-        /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 48px 24px;
-            color: #94a3b8;
-            font-size: 1rem;
+            padding: 44px 20px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
         }
 
         .empty-state.hidden {
             display: none;
         }
 
-        /* Footer */
         .footer-note {
             margin-top: 28px;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
-            font-size: 0.8rem;
-            color: #94a3b8;
+            padding-top: 18px;
+            border-top: 1px solid var(--border);
+            font-size: 0.78rem;
+            color: var(--text-muted);
             text-align: center;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>퓨어픽</h1>
-            <p class="subtitle">건강 식품 랭킹 · 점수가 높을수록 건강에 좋습니다</p>
-        </header>
+    <nav class="site-nav" aria-label="주요 메뉴">
+        <div class="nav-inner">
+            <span class="brand">CleanPick</span>
+        </div>
+    </nav>
 
-        <div class="search-box">
-            <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" placeholder="제품명으로 검색...">
+    <div class="container">
+        <div class="intro">
+            <p class="subtitle">건강 식품 랭킹 · 점수가 높을수록 건강에 좋습니다</p>
         </div>
 
-        <div class="category-tabs">
-            <button class="category-btn active" data-category="전체">전체</button>
-            <button class="category-btn" data-category="가공육">가공육</button>
-            <button class="category-btn" data-category="음료">음료</button>
+        <div class="search-box">
+            <span class="search-icon" aria-hidden="true">🔍</span>
+            <input type="text" id="searchInput" placeholder="제품명으로 검색..." autocomplete="off">
+        </div>
+
+        <div class="category-tabs" role="tablist">
+            <button type="button" class="category-btn active" data-category="전체" role="tab" aria-selected="true">전체</button>
+            <button type="button" class="category-btn" data-category="가공육" role="tab" aria-selected="false">가공육</button>
+            <button type="button" class="category-btn" data-category="음료" role="tab" aria-selected="false">음료</button>
         </div>
 
         <div class="product-list" id="productList">
@@ -500,6 +538,36 @@
             return { label: '주의', class: 'grade-caution' };
         }
 
+        function gaugeStrokeColor(score) {
+            if (score >= 85) return '#1a6b3a';
+            if (score >= 65) return '#c47a15';
+            return '#c0392b';
+        }
+
+        function scoreGaugeHTML(score) {
+            const cx = 44;
+            const cy = 44;
+            const r = 34;
+            const circumference = 2 * Math.PI * r;
+            const pct = Math.min(100, Math.max(0, Number(score))) / 100;
+            const offset = circumference * (1 - pct);
+            const stroke = gaugeStrokeColor(score);
+            return `
+                <div class="score-gauge" role="img" aria-label="건강 점수 ${score}점">
+                    <svg width="88" height="88" viewBox="0 0 88 88" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#ebeae6" stroke-width="5"/>
+                        <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${stroke}" stroke-width="5"
+                            stroke-linecap="round"
+                            stroke-dasharray="${circumference}"
+                            stroke-dashoffset="${offset}"
+                            transform="rotate(-90 ${cx} ${cy})"/>
+                        <text x="${cx}" y="${cy + 1}" text-anchor="middle" class="gauge-score-num" fill="#1c1c1a">${score}</text>
+                        <text x="${cx}" y="${cy + 14}" text-anchor="middle" class="gauge-unit" fill="#6b6b66">점</text>
+                    </svg>
+                </div>
+            `;
+        }
+
         function formatMainIngredient(mi) {
             if (mi.percent != null && mi.percent !== '') {
                 return `${mi.name} ${mi.percent}%`;
@@ -549,21 +617,20 @@
 
                 const additivesLine = formatAdditives(product.additives);
                 const certHtml = renderCertBadges(product.certifications);
+                const gaugeHtml = scoreGaugeHTML(product.score);
 
                 card.innerHTML = `
                     <div class="card-top">
                         <div class="product-main">
-                            <span class="rank-badge ${rankClass}">${index + 1}</span>
+                            <span class="rank-badge ${rankClass}" aria-label="순위 ${index + 1}">${index + 1}</span>
                             <div class="product-info">
                                 <h3>${product.name}</h3>
                                 <span class="product-meta">${product.brand} · ${product.category}</span>
                             </div>
                         </div>
                         <div class="score-section">
-                            <div class="score-row">
-                                <span class="score-value">${product.score}점</span>
-                                <span class="grade-inline grade-badge ${grade.class}">${grade.label}</span>
-                            </div>
+                            ${gaugeHtml}
+                            <span class="grade-badge ${grade.class}">${grade.label}</span>
                         </div>
                     </div>
                     <div class="card-details">
@@ -598,8 +665,12 @@
 
         document.querySelectorAll('.category-btn').forEach(btn => {
             btn.addEventListener('click', () => {
-                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.category-btn').forEach(b => {
+                    b.classList.remove('active');
+                    b.setAttribute('aria-selected', 'false');
+                });
                 btn.classList.add('active');
+                btn.setAttribute('aria-selected', 'true');
                 filterProducts();
             });
         });
