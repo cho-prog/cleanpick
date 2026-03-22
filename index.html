@@ -154,11 +154,11 @@
             background: #fff;
             border: 1px solid var(--border);
             border-radius: 14px;
-            padding: 14px 16px;
+            padding: 14px 14px 14px 12px;
             transition: border-color 0.2s, box-shadow 0.2s;
             display: flex;
             align-items: stretch;
-            gap: 12px;
+            gap: 10px;
         }
 
         .product-card:hover {
@@ -228,7 +228,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 4px;
+            gap: 0;
             padding: 2px 0;
         }
 
@@ -240,10 +240,10 @@
         }
 
         .product-subline {
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             color: var(--text-muted);
             line-height: 1.4;
-            margin-top: 5px;
+            margin-top: 4px;
         }
 
         .product-subline .product-brand {
@@ -262,105 +262,175 @@
             font-weight: 400;
         }
 
-        .card-mid-right {
-            flex: 0 1 auto;
+        .card-center-divider {
+            height: 1px;
+            background: #ebebe6;
+            margin: 10px 0 8px;
+        }
+
+        .score-metrics {
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
-            justify-content: flex-start;
+            gap: 7px;
+        }
+
+        .metric-row {
+            display: flex;
+            align-items: center;
             gap: 8px;
-            min-width: 0;
-            max-width: 40%;
-            padding-left: 10px;
-            border-left: 1px solid #efefec;
-        }
-
-        .card-details-compact {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            font-size: 0.68rem;
-            color: #5a5a55;
+            font-size: 0.7rem;
             line-height: 1.35;
-            text-align: right;
-            width: 100%;
-        }
-
-        .detail-row-compact strong {
             color: #4a4a45;
-            font-weight: 600;
-            margin-right: 4px;
         }
 
-        .detail-row-compact.cert-line-compact {
+        .metric-row-label {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+        }
+
+        .metric-k {
+            font-weight: 600;
+            color: #3d3d3a;
+            flex-shrink: 0;
+        }
+
+        .metric-v {
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #5a5a55;
+        }
+
+        .metric-score-side {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .metric-fraction {
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: #3d3d3a;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .metric-fraction .metric-max {
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .metric-bar {
+            width: 44px;
+            height: 4px;
+            background: #ecece8;
+            border-radius: 2px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .metric-bar-fill {
+            display: block;
+            height: 100%;
+            border-radius: 2px;
+            background: linear-gradient(90deg, #2d8f52, var(--green-excellent));
+            max-width: 100%;
+        }
+
+        .card-right-col {
+            flex-shrink: 0;
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
-            gap: 4px;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding-left: 8px;
+            margin-left: 2px;
+            border-left: 1px solid #efefec;
+            width: 76px;
         }
 
-        .cert-badges {
+        .score-gauge-stack {
             display: flex;
-            flex-wrap: wrap;
-            gap: 4px;
-            justify-content: flex-end;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
         }
 
-        .cert-badge {
-            font-size: 0.62rem;
+        .score-gauge-wrap {
+            position: relative;
+            width: 64px;
+            height: 64px;
+            flex-shrink: 0;
+        }
+
+        .score-gauge-wrap svg {
+            width: 64px;
+            height: 64px;
+            transform: rotate(-90deg);
+        }
+
+        .gauge-bg {
+            fill: none;
+            stroke: #ecece8;
+            stroke-width: 5;
+        }
+
+        .gauge-fill {
+            fill: none;
+            stroke: var(--green-excellent);
+            stroke-width: 5;
+            stroke-linecap: round;
+            stroke-dasharray: 163.36;
+            transition: stroke-dashoffset 0.35s ease;
+        }
+
+        .gauge-fill.gauge-good {
+            stroke: var(--orange-good);
+        }
+
+        .gauge-fill.gauge-caution {
+            stroke: var(--red-caution);
+        }
+
+        .gauge-center {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            padding-bottom: 2px;
+        }
+
+        .gauge-score-num {
+            font-size: 1.28rem;
+            font-weight: 700;
+            color: var(--text);
+            letter-spacing: -0.04em;
+            line-height: 1;
+        }
+
+        .gauge-score-unit {
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-top: 3px;
+        }
+
+        .card-right-col .grade-badge {
+            display: inline-block;
+            font-size: 0.58rem;
             font-weight: 600;
             padding: 2px 6px;
             border-radius: 4px;
-        }
-
-        .cert-organic {
-            background: rgba(26, 107, 58, 0.1);
-            color: var(--green-excellent);
-        }
-
-        .cert-antibiotic-free {
-            background: rgba(196, 122, 21, 0.12);
-            color: var(--orange-good);
-        }
-
-        .cert-haccp {
-            background: rgba(28, 28, 26, 0.06);
-            color: #4a4a45;
-        }
-
-        .cert-none {
-            color: var(--text-muted);
-            font-size: 0.68rem;
-        }
-
-        .score-block {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 4px;
-        }
-
-        .final-score-num {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--text);
-            line-height: 1;
-            letter-spacing: -0.03em;
-        }
-
-        .final-score-unit {
-            font-size: 0.88rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-left: 2px;
-        }
-
-        .grade-badge {
-            display: inline-block;
-            font-size: 0.68rem;
-            font-weight: 600;
-            padding: 2px 7px;
-            border-radius: 6px;
+            margin-top: 0;
         }
 
         .grade-excellent {
@@ -379,24 +449,22 @@
         }
 
         .coupang-btn {
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
-            align-self: flex-end;
-            min-width: 44px;
-            padding: 10px 14px;
+            width: 100%;
+            padding: 10px 8px;
             background: var(--btn-coupang);
             color: #fff;
             border: none;
             border-radius: 8px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 600;
             font-family: inherit;
             cursor: pointer;
             text-decoration: none;
             transition: background 0.2s, box-shadow 0.2s;
             flex-shrink: 0;
-            margin-top: 2px;
         }
 
         .coupang-btn:hover {
@@ -604,12 +672,6 @@
             }
         ];
 
-        const CERT_CLASS = {
-            유기농: 'cert-organic',
-            무항생제: 'cert-antibiotic-free',
-            HACCP: 'cert-haccp'
-        };
-
         function getGrade(score) {
             if (score >= 85) return { label: '우수', class: 'grade-excellent' };
             if (score >= 65) return { label: '양호', class: 'grade-good' };
@@ -627,14 +689,94 @@
             return text && String(text).trim() ? text.trim() : '첨가물 없음';
         }
 
-        function renderCertBadges(certs) {
-            if (!certs || certs.length === 0) {
-                return '<span class="cert-none">해당 없음</span>';
+        function computeScoreBreakdown(product) {
+            const caps = [35, 30, 20, 15];
+            const target = product.score;
+
+            const qMain = product.mainIngredient.percent != null
+                ? Math.min(1, product.mainIngredient.percent / 100)
+                : 0.35;
+
+            const t = (product.additives || '').trim();
+            const pieces = t ? t.split(/[·,]/).filter(Boolean).length : 0;
+            const qAdd = t
+                ? Math.max(0.12, 1 - 0.1 * pieces - Math.min(0.5, t.length / 90))
+                : 1;
+
+            const certs = product.certifications || [];
+            const certOnly = certs.filter(c => c !== 'HACCP');
+            let qCert = 0.1;
+            if (certOnly.includes('유기농')) qCert += 0.52;
+            if (certOnly.includes('무항생제')) qCert += 0.4;
+            qCert = Math.min(1, qCert);
+
+            const qHyg = certs.includes('HACCP') ? 0.92 : 0.46;
+
+            const ideals = [
+                qMain * caps[0],
+                qAdd * caps[1],
+                qCert * caps[2],
+                qHyg * caps[3]
+            ];
+            const sumI = ideals.reduce((a, b) => a + b, 0) || 1;
+            const parts = ideals.map(x => (x / sumI) * target);
+
+            const scores = parts.map((p, i) =>
+                Math.min(caps[i], Math.max(0, Math.round(p)))
+            );
+            let diff = target - scores.reduce((a, b) => a + b, 0);
+            let guard = 0;
+            while (diff !== 0 && guard < 240) {
+                if (diff > 0) {
+                    const idx = caps.findIndex((c, j) => scores[j] < c);
+                    if (idx < 0) break;
+                    scores[idx]++;
+                    diff--;
+                } else {
+                    const idx = scores.findIndex(s => s > 0);
+                    if (idx < 0) break;
+                    scores[idx]--;
+                    diff++;
+                }
+                guard++;
             }
-            return `<div class="cert-badges">${certs.map(c => {
-                const cls = CERT_CLASS[c] || 'cert-haccp';
-                return `<span class="cert-badge ${cls}">${c}</span>`;
-            }).join('')}</div>`;
+
+            return {
+                main: { score: scores[0], max: caps[0], text: formatMainIngredient(product.mainIngredient) },
+                additive: { score: scores[1], max: caps[1], text: formatAdditives(product.additives) },
+                cert: {
+                    score: scores[2],
+                    max: caps[2],
+                    text: certOnly.length ? certOnly.join('·') : '해당 없음'
+                },
+                hygiene: {
+                    score: scores[3],
+                    max: caps[3],
+                    text: certs.includes('HACCP') ? 'HACCP A등급' : '해당 없음'
+                }
+            };
+        }
+
+        function metricRowHtml(keyLabel, valueText, score, max) {
+            const pct = max > 0 ? Math.min(100, (score / max) * 100) : 0;
+            return `
+                <div class="metric-row">
+                    <div class="metric-row-label">
+                        <span class="metric-k">${keyLabel}</span>
+                        <span class="metric-v">${valueText}</span>
+                    </div>
+                    <div class="metric-score-side">
+                        <span class="metric-fraction">[ ${score}점 <span class="metric-max">/ ${max}점</span> ]</span>
+                        <div class="metric-bar" role="presentation"><span class="metric-bar-fill" style="width:${pct}%"></span></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function gaugeStrokeClass(gradeClass) {
+            if (gradeClass === 'grade-good') return 'gauge-fill gauge-good';
+            if (gradeClass === 'grade-caution') return 'gauge-fill gauge-caution';
+            return 'gauge-fill';
         }
 
         function getCoupangUrl(product) {
@@ -673,9 +815,12 @@
 
                 const rankClass = `rank-${Math.min(index + 1, 6)}`;
 
-                const additivesLine = formatAdditives(product.additives);
-                const certHtml = renderCertBadges(product.certifications);
+                const bd = computeScoreBreakdown(product);
                 const thumbHtml = thumbInnerHTML(product);
+                const gaugeR = 26;
+                const gaugeLen = 2 * Math.PI * gaugeR;
+                const gaugeOff = gaugeLen * (1 - product.score / 100);
+                const strokeCls = gaugeStrokeClass(grade.class);
 
                 card.innerHTML = `
                     <div class="card-left-col">
@@ -687,16 +832,29 @@
                             <h3>${product.name}</h3>
                             <p class="product-subline"><span class="product-brand">${product.brand}</span><span class="meta-sep">·</span><span class="product-pack">${product.packSize}</span></p>
                         </div>
-                    </div>
-                    <div class="card-mid-right">
-                        <div class="card-details-compact">
-                            <div class="detail-row-compact"><strong>주원료</strong>${formatMainIngredient(product.mainIngredient)}</div>
-                            <div class="detail-row-compact"><strong>첨가물</strong>${additivesLine}</div>
-                            <div class="detail-row-compact cert-line-compact"><strong>인증</strong>${certHtml}</div>
+                        <div class="card-center-divider" aria-hidden="true"></div>
+                        <div class="score-metrics" role="group" aria-label="세부 점수">
+                            ${metricRowHtml('주원료:', bd.main.text, bd.main.score, bd.main.max)}
+                            ${metricRowHtml('첨가물:', bd.additive.text, bd.additive.score, bd.additive.max)}
+                            ${metricRowHtml('인증:', bd.cert.text, bd.cert.score, bd.cert.max)}
+                            ${metricRowHtml('위생:', bd.hygiene.text, bd.hygiene.score, bd.hygiene.max)}
                         </div>
-                        <div class="score-block" role="group" aria-label="건강 점수 ${product.score}점">
-                            <div class="final-score-num">${product.score}<span class="final-score-unit">점</span></div>
-                            <span class="grade-badge ${grade.class}">${grade.label}</span>
+                    </div>
+                    <div class="card-right-col">
+                        <div class="score-gauge-stack">
+                        <div class="score-gauge-wrap" role="img" aria-label="최종 점수 ${product.score}점 만점 100">
+                            <svg viewBox="0 0 64 64" aria-hidden="true">
+                                <circle class="gauge-bg" cx="32" cy="32" r="${gaugeR}" />
+                                <circle class="${strokeCls}" cx="32" cy="32" r="${gaugeR}"
+                                    stroke-dasharray="${gaugeLen}"
+                                    stroke-dashoffset="${gaugeOff}" />
+                            </svg>
+                            <div class="gauge-center">
+                                <span class="gauge-score-num">${product.score}</span>
+                                <span class="gauge-score-unit">점</span>
+                            </div>
+                        </div>
+                        <span class="grade-badge ${grade.class}">${grade.label}</span>
                         </div>
                         <a href="${getCoupangUrl(product)}" target="_blank" rel="noopener noreferrer" class="coupang-btn">구매</a>
                     </div>
