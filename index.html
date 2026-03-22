@@ -193,6 +193,21 @@
             display: block;
         }
 
+        .score-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: flex-end;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .grade-inline {
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
         .grade-badge {
             display: inline-block;
             font-size: 0.75rem;
@@ -200,6 +215,69 @@
             padding: 4px 10px;
             border-radius: 8px;
             margin-top: 4px;
+        }
+
+        .card-details {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.82rem;
+            color: #475569;
+            line-height: 1.45;
+        }
+
+        .detail-row strong {
+            color: #334155;
+            font-weight: 600;
+            margin-right: 6px;
+        }
+
+        .detail-row.cert-line {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .detail-row.cert-line strong {
+            flex-shrink: 0;
+        }
+
+        .cert-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 2px;
+        }
+
+        .cert-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .cert-organic {
+            background: rgba(22, 163, 74, 0.12);
+            color: #15803d;
+        }
+
+        .cert-antibiotic-free {
+            background: rgba(37, 99, 235, 0.12);
+            color: #1d4ed8;
+        }
+
+        .cert-haccp {
+            background: rgba(124, 58, 237, 0.12);
+            color: #6d28d9;
+        }
+
+        .cert-none {
+            color: #94a3b8;
+            font-size: 0.82rem;
         }
 
         .grade-excellent {
@@ -300,18 +378,147 @@
 
     <script>
         const products = [
-            { name: '제주 감귤 100% 주스', score: 93, category: '음료', brand: '제주' },
-            { name: '목우촌 프랑크', score: 88, category: '가공육', brand: '목우촌' },
-            { name: '삼성 비엔나', score: 84, category: '가공육', brand: '삼성' },
-            { name: '동원 리얼치킨', score: 79, category: '가공육', brand: '동원' },
-            { name: 'CJ 스팸', score: 61, category: '가공육', brand: 'CJ' },
-            { name: '롯데 칠성사이다', score: 55, category: '음료', brand: '롯데' }
+            {
+                name: '목우촌 주부9단 프랑크',
+                score: 88,
+                category: '가공육',
+                brand: '목우촌',
+                mainIngredient: { name: '돼지고기', percent: 82 },
+                additives: '아질산나트륨·인산염',
+                certifications: ['무항생제']
+            },
+            {
+                name: '삼성 무항생제 한돈 비엔나',
+                score: 84,
+                category: '가공육',
+                brand: '삼성',
+                mainIngredient: { name: '돼지고기', percent: 75 },
+                additives: '아질산나트륨·인산염',
+                certifications: ['무항생제']
+            },
+            {
+                name: '동원 리얼 치킨 소시지',
+                score: 79,
+                category: '가공육',
+                brand: '동원',
+                mainIngredient: { name: '닭고기', percent: 68 },
+                additives: 'MSG·아질산나트륨·착색료',
+                certifications: []
+            },
+            {
+                name: 'CJ 스팸 클래식',
+                score: 61,
+                category: '가공육',
+                brand: 'CJ',
+                mainIngredient: { name: '돼지고기', percent: 52 },
+                additives: '아질산나트륨·인산염·MSG·착색료·보존료',
+                certifications: []
+            },
+            {
+                name: '롯데 의성마늘 햄',
+                score: 82,
+                category: '가공육',
+                brand: '롯데',
+                mainIngredient: { name: '돼지고기', percent: 70 },
+                additives: '아질산나트륨·인산염',
+                certifications: []
+            },
+            {
+                name: '하림 닭가슴살 소시지',
+                score: 86,
+                category: '가공육',
+                brand: '하림',
+                mainIngredient: { name: '닭고기', percent: 85 },
+                additives: '인산염',
+                certifications: ['무항생제']
+            },
+            {
+                name: '제주 감귤 100% 착즙주스',
+                score: 93,
+                category: '음료',
+                brand: '제주',
+                mainIngredient: { name: '감귤과즙', percent: 100 },
+                additives: '',
+                certifications: ['유기농']
+            },
+            {
+                name: '롯데 칠성사이다',
+                score: 55,
+                category: '음료',
+                brand: '롯데',
+                mainIngredient: { name: '탄산수', percent: null },
+                additives: '액상과당·구연산·향료',
+                certifications: []
+            },
+            {
+                name: '서울우유 흰우유',
+                score: 90,
+                category: '음료',
+                brand: '서울우유',
+                mainIngredient: { name: '원유', percent: 100 },
+                additives: '',
+                certifications: ['HACCP']
+            },
+            {
+                name: '매일 바이오 요거트',
+                score: 88,
+                category: '음료',
+                brand: '매일',
+                mainIngredient: { name: '원유', percent: 85 },
+                additives: '',
+                certifications: ['무항생제']
+            },
+            {
+                name: '코카콜라',
+                score: 48,
+                category: '음료',
+                brand: '코카콜라',
+                mainIngredient: { name: '탄산수', percent: null },
+                additives: '액상과당·카라멜색소·인산·향료',
+                certifications: []
+            },
+            {
+                name: '자연은 착즙 사과주스',
+                score: 92,
+                category: '음료',
+                brand: '자연은',
+                mainIngredient: { name: '사과과즙', percent: 100 },
+                additives: '',
+                certifications: []
+            }
         ];
 
+        const CERT_CLASS = {
+            유기농: 'cert-organic',
+            무항생제: 'cert-antibiotic-free',
+            HACCP: 'cert-haccp'
+        };
+
         function getGrade(score) {
-            if (score >= 85) return { label: '🟢 우수', class: 'grade-excellent' };
-            if (score >= 65) return { label: '🟡 양호', class: 'grade-good' };
-            return { label: '🔴 주의', class: 'grade-caution' };
+            if (score >= 85) return { label: '우수', class: 'grade-excellent' };
+            if (score >= 65) return { label: '양호', class: 'grade-good' };
+            return { label: '주의', class: 'grade-caution' };
+        }
+
+        function formatMainIngredient(mi) {
+            if (mi.percent != null && mi.percent !== '') {
+                return `${mi.name} ${mi.percent}%`;
+            }
+            return mi.name;
+        }
+
+        function formatAdditives(text) {
+            return text && String(text).trim() ? text.trim() : '첨가물 없음';
+        }
+
+        function renderCertBadges(certs) {
+            if (!certs || certs.length === 0) {
+                return '<span class="cert-none">해당 없음</span>';
+            }
+            return `<div class="cert-badges">${certs.map(c => {
+                const cls = CERT_CLASS[c] || 'cert-haccp';
+                return `<span class="cert-badge ${cls}">${c}</span>`;
+            }).join('')}</div>`;
         }
 
         function getCoupangUrl(productName) {
@@ -340,6 +547,9 @@
 
                 const rankClass = `rank-${Math.min(index + 1, 6)}`;
 
+                const additivesLine = formatAdditives(product.additives);
+                const certHtml = renderCertBadges(product.certifications);
+
                 card.innerHTML = `
                     <div class="card-top">
                         <div class="product-main">
@@ -350,9 +560,16 @@
                             </div>
                         </div>
                         <div class="score-section">
-                            <span class="score-value">${product.score}점</span>
-                            <span class="grade-badge ${grade.class}">${grade.label}</span>
+                            <div class="score-row">
+                                <span class="score-value">${product.score}점</span>
+                                <span class="grade-inline grade-badge ${grade.class}">${grade.label}</span>
+                            </div>
                         </div>
+                    </div>
+                    <div class="card-details">
+                        <div class="detail-row"><strong>주원료</strong>${formatMainIngredient(product.mainIngredient)}</div>
+                        <div class="detail-row"><strong>첨가물</strong>${additivesLine}</div>
+                        <div class="detail-row cert-line"><strong>인증</strong>${certHtml}</div>
                     </div>
                     <a href="${getCoupangUrl(product.name)}" target="_blank" rel="noopener noreferrer" class="coupang-btn">
                         🛒 쿠팡에서 구매하기
@@ -373,6 +590,7 @@
                 return matchSearch && matchCategory;
             });
 
+            filtered.sort((a, b) => b.score - a.score);
             renderProducts(filtered);
         }
 
