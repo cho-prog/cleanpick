@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>퓨어픽 - 건강 식품 랭킹</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: linear-gradient(160deg, #f0f4f8 0%, #e2e8f0 50%, #cbd5e1 100%);
+            min-height: 100vh;
+            padding: 32px 24px;
+        }
+
+        .container {
+            max-width: 540px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        h1 {
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: #1e293b;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        /* Search */
+        .search-box {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 18px 14px 44px;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: white;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+        }
+
+        .search-box input::placeholder {
+            color: #94a3b8;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+
+        /* Category Buttons */
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .category-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            background: white;
+            font-size: 0.95rem;
+            font-weight: 500;
+            font-family: inherit;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .category-btn:hover {
+            border-color: #cbd5e1;
+            color: #475569;
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            border-color: #2563eb;
+            color: white;
+        }
+
+        /* Product Cards */
+        .product-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px 22px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .product-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-card.hidden {
+            display: none;
+        }
+
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .product-main {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .rank-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .rank-1 { background: linear-gradient(135deg, #2e7d32 0%, #43a047 100%); }
+        .rank-2 { background: linear-gradient(135deg, #388e3c 0%, #66bb6a 100%); }
+        .rank-3 { background: linear-gradient(135deg, #1565c0 0%, #1976d2 100%); }
+        .rank-4 { background: linear-gradient(135deg, #5e35b1 0%, #7e57c2 100%); }
+        .rank-5 { background: linear-gradient(135deg, #6d4c41 0%, #8d6e63 100%); }
+        .rank-6 { background: linear-gradient(135deg, #455a64 0%, #607d8b 100%); }
+
+        .product-info h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 2px;
+        }
+
+        .product-meta {
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        .score-section {
+            text-align: right;
+        }
+
+        .score-value {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #1e293b;
+            display: block;
+        }
+
+        .grade-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 8px;
+            margin-top: 4px;
+        }
+
+        .grade-excellent {
+            background: rgba(34, 197, 94, 0.15);
+            color: #16a34a;
+        }
+
+        .grade-good {
+            background: rgba(234, 179, 8, 0.2);
+            color: #ca8a04;
+        }
+
+        .grade-caution {
+            background: rgba(239, 68, 68, 0.15);
+            color: #dc2626;
+        }
+
+        .coupang-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #00c73c 0%, #00a32e 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s;
+            margin-top: 14px;
+        }
+
+        .coupang-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(0, 199, 60, 0.35);
+        }
+
+        .coupang-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        .empty-state.hidden {
+            display: none;
+        }
+
+        /* Footer */
+        .footer-note {
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 0.8rem;
+            color: #94a3b8;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>퓨어픽</h1>
+            <p class="subtitle">건강 식품 랭킹 · 점수가 높을수록 건강에 좋습니다</p>
+        </header>
+
+        <div class="search-box">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="제품명으로 검색...">
+        </div>
+
+        <div class="category-tabs">
+            <button class="category-btn active" data-category="전체">전체</button>
+            <button class="category-btn" data-category="가공육">가공육</button>
+            <button class="category-btn" data-category="음료">음료</button>
+        </div>
+
+        <div class="product-list" id="productList">
+            <!-- Products will be rendered by JS -->
+        </div>
+
+        <div class="empty-state hidden" id="emptyState">
+            검색 결과가 없습니다.
+        </div>
+
+        <p class="footer-note">* 건강 점수는 100점 만점 기준입니다</p>
+    </div>
+
+    <script>
+        const products = [
+            { name: '제주 감귤 100% 주스', score: 93, category: '음료', brand: '제주' },
+            { name: '목우촌 프랑크', score: 88, category: '가공육', brand: '목우촌' },
+            { name: '삼성 비엔나', score: 84, category: '가공육', brand: '삼성' },
+            { name: '동원 리얼치킨', score: 79, category: '가공육', brand: '동원' },
+            { name: 'CJ 스팸', score: 61, category: '가공육', brand: 'CJ' },
+            { name: '롯데 칠성사이다', score: 55, category: '음료', brand: '롯데' }
+        ];
+
+        function getGrade(score) {
+            if (score >= 85) return { label: '🟢 우수', class: 'grade-excellent' };
+            if (score >= 65) return { label: '🟡 양호', class: 'grade-good' };
+            return { label: '🔴 주의', class: 'grade-caution' };
+        }
+
+        function getCoupangUrl(productName) {
+            return 'https://www.coupang.com/np/search?q=' + encodeURIComponent(productName);
+        }
+
+        function renderProducts(filteredProducts) {
+            const list = document.getElementById('productList');
+            const emptyState = document.getElementById('emptyState');
+
+            list.innerHTML = '';
+
+            if (filteredProducts.length === 0) {
+                emptyState.classList.remove('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            filteredProducts.forEach((product, index) => {
+                const grade = getGrade(product.score);
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.dataset.name = product.name;
+                card.dataset.category = product.category;
+
+                const rankClass = `rank-${Math.min(index + 1, 6)}`;
+
+                card.innerHTML = `
+                    <div class="card-top">
+                        <div class="product-main">
+                            <span class="rank-badge ${rankClass}">${index + 1}</span>
+                            <div class="product-info">
+                                <h3>${product.name}</h3>
+                                <span class="product-meta">${product.brand} · ${product.category}</span>
+                            </div>
+                        </div>
+                        <div class="score-section">
+                            <span class="score-value">${product.score}점</span>
+                            <span class="grade-badge ${grade.class}">${grade.label}</span>
+                        </div>
+                    </div>
+                    <a href="${getCoupangUrl(product.name)}" target="_blank" rel="noopener noreferrer" class="coupang-btn">
+                        🛒 쿠팡에서 구매하기
+                    </a>
+                `;
+
+                list.appendChild(card);
+            });
+        }
+
+        function filterProducts() {
+            const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+            const activeCategory = document.querySelector('.category-btn.active').dataset.category;
+
+            let filtered = products.filter(p => {
+                const matchSearch = !searchTerm || p.name.toLowerCase().includes(searchTerm);
+                const matchCategory = activeCategory === '전체' || p.category === activeCategory;
+                return matchSearch && matchCategory;
+            });
+
+            renderProducts(filtered);
+        }
+
+        document.getElementById('searchInput').addEventListener('input', filterProducts);
+
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterProducts();
+            });
+        });
+
+        renderProducts(products);
+    </script>
+</body>
+</html>
