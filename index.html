@@ -66,6 +66,15 @@
             padding: 24px 24px 40px;
         }
 
+        .partner-disclosure {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            text-align: center;
+            margin: -6px 0 18px;
+            padding: 0 8px;
+        }
+
         .intro {
             margin-bottom: 22px;
         }
@@ -505,6 +514,7 @@
     </nav>
 
     <div class="container">
+        <p class="partner-disclosure">쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</p>
         <div class="intro">
             <p class="subtitle">건강 식품 랭킹 · 점수가 높을수록 건강에 좋습니다</p>
         </div>
@@ -544,6 +554,7 @@
                 score: 88,
                 category: '가공육',
                 brand: '목우촌',
+                coupangUrl: 'https://link.coupang.com/a/d9na8N',
                 image: '',
                 mainIngredient: { name: '돼지고기', percent: 82 },
                 additives: '아질산나트륨·인산염',
@@ -780,6 +791,9 @@
         }
 
         function getCoupangUrl(product) {
+            if (product.coupangUrl && String(product.coupangUrl).trim()) {
+                return String(product.coupangUrl).trim();
+            }
             const q = `${product.name} ${product.packSize}`.trim();
             return 'https://www.coupang.com/np/search?q=' + encodeURIComponent(q);
         }
