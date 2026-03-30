@@ -525,6 +525,150 @@
             width: 100%;
         }
 
+        /* ── 정렬 바 ── */
+        .sort-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .sort-label {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .sort-btn {
+            padding: 5px 10px;
+            font-size: 0.72rem;
+            font-family: inherit;
+            font-weight: 500;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            background: #fff;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .sort-btn.active {
+            background: var(--text);
+            border-color: var(--text);
+            color: #fff;
+        }
+
+        /* ── 로딩 ── */
+        .loading-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 48px 20px;
+            gap: 12px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .loading-state.hidden { display: none; }
+
+        .loading-spinner {
+            width: 28px;
+            height: 28px;
+            border: 3px solid var(--border);
+            border-top-color: var(--green-excellent);
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ── 페이지네이션 ── */
+        .pagination-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            margin-top: 22px;
+            flex-wrap: wrap;
+        }
+
+        .pagination-bar.hidden { display: none; }
+
+        .page-btn {
+            min-width: 34px;
+            height: 34px;
+            padding: 0 8px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: #fff;
+            font-size: 0.8rem;
+            font-family: inherit;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .page-btn:hover { border-color: #b8c4b8; color: var(--text); }
+        .page-btn.active {
+            background: var(--green-excellent);
+            border-color: var(--green-excellent);
+            color: #fff;
+        }
+
+        .page-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+        /* ── 첨가물 경고 태그 ── */
+        .additive-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3px;
+            margin-top: 2px;
+        }
+
+        .additive-tag {
+            font-size: 0.58rem;
+            font-weight: 600;
+            padding: 1px 5px;
+            border-radius: 4px;
+        }
+
+        .tag-danger { background: rgba(192,57,43,0.1); color: var(--red-caution); }
+        .tag-warning { background: rgba(196,122,21,0.12); color: var(--orange-good); }
+        .tag-safe { background: rgba(26,107,58,0.1); color: var(--green-excellent); }
+
+        /* ── 출처 뱃지 ── */
+        .source-badges {
+            display: flex;
+            gap: 4px;
+            margin-top: 3px;
+        }
+
+        .source-badge {
+            font-size: 0.58rem;
+            font-weight: 600;
+            padding: 1px 5px;
+            border-radius: 4px;
+            border: 1px solid;
+        }
+
+        .badge-coupang { color: #e51a24; border-color: rgba(229,26,36,0.3); background: rgba(229,26,36,0.06); }
+        .badge-emart { color: #1b5ea8; border-color: rgba(27,94,168,0.3); background: rgba(27,94,168,0.06); }
+
+        /* ── 카테고리 탭 스크롤 ── */
+        .category-tabs {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            flex-wrap: nowrap;
+            padding-bottom: 2px;
+        }
+
+        .category-tabs::-webkit-scrollbar { display: none; }
+
+        .category-btn { flex-shrink: 0; }
+
         @media (max-width: 480px) {
             body {
                 padding-top: 52px;
@@ -750,6 +894,18 @@
                 padding-top: 14px;
                 font-size: 0.72rem;
             }
+
+            .sort-row {
+                gap: 4px;
+                margin-bottom: 12px;
+            }
+
+            .sort-btn {
+                padding: 4px 8px;
+                font-size: 0.65rem;
+            }
+
+            .additive-tag { font-size: 0.54rem; }
         }
     </style>
 </head>
@@ -771,396 +927,477 @@
             <input type="text" id="searchInput" placeholder="제품명으로 검색..." autocomplete="off">
         </div>
 
-        <div class="category-tabs" role="tablist">
+        <div class="category-tabs" role="tablist" id="categoryTabs">
             <button type="button" class="category-btn active" data-category="전체" role="tab" aria-selected="true">전체</button>
-            <button type="button" class="category-btn" data-category="가공육" role="tab" aria-selected="false">가공육</button>
-            <button type="button" class="category-btn" data-category="음료" role="tab" aria-selected="false">음료</button>
         </div>
 
-        <div class="product-list" id="productList">
-            <!-- Products will be rendered by JS -->
+        <div class="sort-row" id="sortRow">
+            <span class="sort-label">정렬:</span>
+            <button class="sort-btn active" data-sort="score">점수순</button>
+            <button class="sort-btn" data-sort="price_asc">가격 낮은순</button>
+            <button class="sort-btn" data-sort="price_desc">가격 높은순</button>
         </div>
 
-        <div class="empty-state hidden" id="emptyState">
-            검색 결과가 없습니다.
+        <div id="loadingState" class="loading-state">
+            <div class="loading-spinner"></div>
+            <p>데이터 로딩 중...</p>
         </div>
 
-        <p class="footer-note">* 건강 점수는 100점 만점 기준입니다</p>
+        <div class="product-list" id="productList"></div>
+
+        <div class="empty-state hidden" id="emptyState">검색 결과가 없습니다.</div>
+
+        <div id="paginationBar" class="pagination-bar hidden"></div>
+
+        <p class="footer-note">* 건강 점수는 주원료 함량(30점) + 첨가물 안전성(35점) + 인증(20점) + 위생(15점) = 100점 만점입니다</p>
     </div>
 
     <script>
-        const CATEGORY_EMOJI = {
-            가공육: '🥓',
-            음료: '🧃'
-        };
+    // ─────────────────────────────────────────────────────────
+    // PurePick 프론트엔드
+    // products.json (runner.py 출력물)을 fetch하여 렌더링
+    // JSON 없을 때는 내장 샘플 데이터로 동작
+    // ─────────────────────────────────────────────────────────
 
-        const products = [
-            {
-                name: '목우촌 주부9단 그릴후랑크',
-                packSize: '200g',
-                score: 88,
-                category: '가공육',
-                brand: '목우촌',
-                coupangUrl: 'https://link.coupang.com/a/d9na8N',
-                image: '',
-                mainIngredient: { name: '돼지고기', percent: 82 },
-                additives: '아질산나트륨·인산염',
-                certifications: ['무항생제']
-            },
-            {
-                name: '삼성 무항생제 한돈 비엔나소시지',
-                packSize: '180g',
-                score: 84,
-                category: '가공육',
-                brand: '삼성',
-                image: '',
-                mainIngredient: { name: '돼지고기', percent: 75 },
-                additives: '아질산나트륨·인산염',
-                certifications: ['무항생제']
-            },
-            {
-                name: '동원 리얼 치킨 비엔나소시지',
-                packSize: '150g',
-                score: 79,
-                category: '가공육',
-                brand: '동원',
-                image: '',
-                mainIngredient: { name: '닭고기', percent: 68 },
-                additives: 'MSG·아질산나트륨·착색료',
-                certifications: []
-            },
-            {
-                name: 'CJ 스팸 클래식',
-                packSize: '340g',
-                score: 61,
-                category: '가공육',
-                brand: 'CJ',
-                image: '',
-                mainIngredient: { name: '돼지고기', percent: 52 },
-                additives: '아질산나트륨·인산염·MSG·착색료·보존료',
-                certifications: []
-            },
-            {
-                name: '롯데 의성마늘햄',
-                packSize: '200g',
-                score: 82,
-                category: '가공육',
-                brand: '롯데',
-                image: '',
-                mainIngredient: { name: '돼지고기', percent: 70 },
-                additives: '아질산나트륨·인산염',
-                certifications: []
-            },
-            {
-                name: '하림 닭가슴살 소시지',
-                packSize: '150g',
-                score: 86,
-                category: '가공육',
-                brand: '하림',
-                image: '',
-                mainIngredient: { name: '닭고기', percent: 85 },
-                additives: '인산염',
-                certifications: ['무항생제']
-            },
-            {
-                name: '제주 100% 감귤착즙주스',
-                packSize: '1000ml',
-                score: 93,
-                category: '음료',
-                brand: '제주',
-                image: '',
-                mainIngredient: { name: '감귤과즙', percent: 100 },
-                additives: '',
-                certifications: ['유기농']
-            },
-            {
-                name: '롯데칠성 칠성사이다',
-                packSize: '500ml',
-                score: 55,
-                category: '음료',
-                brand: '롯데칠성',
-                image: '',
-                mainIngredient: { name: '탄산수', percent: null },
-                additives: '액상과당·구연산·향료',
-                certifications: []
-            },
-            {
-                name: '서울우유협동조합 흰우유',
-                packSize: '1000ml',
-                score: 90,
-                category: '음료',
-                brand: '서울우유협동조합',
-                image: '',
-                mainIngredient: { name: '원유', percent: 100 },
-                additives: '',
-                certifications: ['HACCP']
-            },
-            {
-                name: '매일유업 바이오거트 플레인',
-                packSize: '450g',
-                score: 88,
-                category: '음료',
-                brand: '매일유업',
-                image: '',
-                mainIngredient: { name: '원유', percent: 85 },
-                additives: '',
-                certifications: ['무항생제']
-            },
-            {
-                name: '코카콜라음료 코카콜라',
-                packSize: '500ml',
-                score: 48,
-                category: '음료',
-                brand: '코카콜라음료',
-                image: '',
-                mainIngredient: { name: '탄산수', percent: null },
-                additives: '액상과당·카라멜색소·인산·향료',
-                certifications: []
-            },
-            {
-                name: '웅진식품 자연은 사과',
-                packSize: '1000ml',
-                score: 92,
-                category: '음료',
-                brand: '웅진식품',
-                image: '',
-                mainIngredient: { name: '사과과즙', percent: 100 },
-                additives: '',
-                certifications: []
+    const CATEGORY_EMOJI = {
+        가공육:'🥓', 음료:'🧃', 유제품:'🥛', 과자:'🍪',
+        면류:'🍜', 통조림:'🥫', 냉동식품:'🧊', '소스·조미료':'🫙',
+        '빵·베이커리':'🍞', '두부·콩나물':'🥬', '김치·반찬':'🥢', 기타:'📦'
+    };
+
+    /* ── 고위험 첨가물 목록 (프론트 뱃지용) ── */
+    const HIGH_RISK = ['아질산나트륨','아질산칼륨','황색4호','황색5호','적색2호','적색40호',
+                       '이산화티타늄','BHA','BHT','아스파탐','카라기난','폴리소르베이트80'];
+    const MED_RISK  = ['MSG','글루탐산나트륨','안식향산나트륨','안식향산','사카린','사카린나트륨',
+                       '인산','인산나트륨','액상과당','카라멜색소','수크랄로스'];
+
+    const PAGE_SIZE = 20;
+    let allProducts = [];
+    let filtered    = [];
+    let currentPage = 1;
+    let currentSort = 'score';
+
+    /* ────────── 데이터 로딩 ────────── */
+    async function loadData() {
+        // 1) products.json 시도
+        try {
+            const res = await fetch('data/products.json');
+            if (res.ok) {
+                const json = await res.json();
+                allProducts = (json.products || json || []).map(normalizeProduct);
+                if (allProducts.length > 0) return;
             }
-        ];
+        } catch (_) {}
 
-        function getGrade(score) {
-            if (score >= 85) return { label: '우수', class: 'grade-excellent' };
-            if (score >= 65) return { label: '양호', class: 'grade-good' };
-            return { label: '주의', class: 'grade-caution' };
-        }
+        // 2) 폴백: 내장 샘플 (runner.py 실행 전 미리보기)
+        allProducts = SAMPLE_PRODUCTS.map(normalizeProduct);
+    }
 
-        function formatMainIngredient(mi) {
-            if (mi.percent != null && mi.percent !== '') {
-                return `${mi.name} ${mi.percent}%`;
-            }
-            return mi.name;
-        }
+    /* products.json의 실제 구조 → 렌더링용 공통 포맷 변환 */
+    function normalizeProduct(p) {
+        const sc = p.score || {};
+        const bd = sc.breakdown || {};
 
-        function formatAdditives(text) {
-            return text && String(text).trim() ? text.trim() : '첨가물 없음';
-        }
-
-        function computeScoreBreakdown(product) {
-            const caps = [35, 30, 20, 15];
-            const target = product.score;
-
-            const qMain = product.mainIngredient.percent != null
-                ? Math.min(1, product.mainIngredient.percent / 100)
-                : 0.35;
-
-            const t = (product.additives || '').trim();
-            const pieces = t ? t.split(/[·,]/).filter(Boolean).length : 0;
-            const qAdd = t
-                ? Math.max(0.12, 1 - 0.1 * pieces - Math.min(0.5, t.length / 90))
-                : 1;
-
-            const certs = product.certifications || [];
-            const certOnly = certs.filter(c => c !== 'HACCP');
-            let qCert = 0.1;
-            if (certOnly.includes('유기농')) qCert += 0.52;
-            if (certOnly.includes('무항생제')) qCert += 0.4;
-            qCert = Math.min(1, qCert);
-
-            const qHyg = certs.includes('HACCP') ? 0.92 : 0.46;
-
-            const ideals = [
-                qMain * caps[0],
-                qAdd * caps[1],
-                qCert * caps[2],
-                qHyg * caps[3]
-            ];
-            const sumI = ideals.reduce((a, b) => a + b, 0) || 1;
-            const parts = ideals.map(x => (x / sumI) * target);
-
-            const scores = parts.map((p, i) =>
-                Math.min(caps[i], Math.max(0, Math.round(p)))
-            );
-            let diff = target - scores.reduce((a, b) => a + b, 0);
-            let guard = 0;
-            while (diff !== 0 && guard < 240) {
-                if (diff > 0) {
-                    const idx = caps.findIndex((c, j) => scores[j] < c);
-                    if (idx < 0) break;
-                    scores[idx]++;
-                    diff--;
-                } else {
-                    const idx = scores.findIndex(s => s > 0);
-                    if (idx < 0) break;
-                    scores[idx]--;
-                    diff++;
-                }
-                guard++;
-            }
-
+        // runner.py 결과물 형식
+        if (sc.total !== undefined) {
             return {
-                main: { score: scores[0], max: caps[0], text: formatMainIngredient(product.mainIngredient) },
-                additive: { score: scores[1], max: caps[1], text: formatAdditives(product.additives) },
-                cert: {
-                    score: scores[2],
-                    max: caps[2],
-                    text: certOnly.length ? certOnly.join('·') : '해당 없음'
+                id:            p.id || '',
+                name:          p.name || '',
+                brand:         p.brand || '',
+                category:      p.category || '기타',
+                weight:        p.weight || '',
+                price:         p.price,
+                image:         p.image_url || '',
+                coupangUrl:    p.coupang_url || '',
+                emartUrl:      p.emart_url || '',
+                source:        p.source || 'unknown',
+                manufacturer:  p.manufacturer || '',
+                certifications: p.certifications || [],
+                haccp:         p.haccp || false,
+                adminActions:  p.admin_actions || 0,
+                recallCount:   p.recall_count || 0,
+                score:         sc.total,
+                grade:         sc.grade,
+                gradeClass:    sc.grade_color,
+                bd: {
+                    main:  { score: (bd.ingredient||{}).score||0, max:30, text: fmtIngr(p) },
+                    add:   { score: (bd.additive||{}).score||0,   max:35, text: fmtAdditives(p), items: (bd.additive||{}).items||[] },
+                    cert:  { score: (bd.certification||{}).score||0, max:20, text: (bd.certification||{}).detail||'없음' },
+                    hyg:   { score: (bd.hygiene||{}).score||0,    max:15, text: (bd.hygiene||{}).detail||'기본' }
                 },
-                hygiene: {
-                    score: scores[3],
-                    max: caps[3],
-                    text: certs.includes('HACCP') ? 'HACCP A등급' : '해당 없음'
-                }
+                rank:         p.rank || 0,
+                categoryRank: p.category_rank || 0,
             };
         }
 
-        function metricRowHtml(keyLabel, valueText, score, max) {
-            const pct = max > 0 ? Math.min(100, (score / max) * 100) : 0;
-            return `
-                <div class="metric-row">
-                    <div class="metric-row-label">
-                        <span class="metric-k">${keyLabel}</span>
-                        <span class="metric-v">${valueText}</span>
+        // 기존 샘플 데이터 형식 (하위 호환)
+        const mi = p.mainIngredient || {};
+        const certs = p.certifications || [];
+        const addText = (p.additives||'').trim();
+        const score = p.score || 0;
+
+        const qMain = mi.percent != null ? Math.min(1, mi.percent/100) : 0.4;
+        const pieces = addText ? addText.split(/[·,]/).filter(Boolean).length : 0;
+        const qAdd = addText ? Math.max(0.15, 1 - 0.1*pieces) : 1;
+        const certOnly = certs.filter(c=>c!=='HACCP');
+        let qCert = 0.1;
+        if (certOnly.includes('유기농')) qCert += 0.52;
+        else if (certOnly.includes('무항생제')) qCert += 0.4;
+        qCert = Math.min(1, qCert);
+        const qHyg = certs.includes('HACCP') ? 0.93 : 0.4;
+        const ideals = [qMain*30, qAdd*35, qCert*20, qHyg*15];
+        const sumI = ideals.reduce((a,b)=>a+b,0)||1;
+        const sc2 = ideals.map((x,i)=>Math.min([30,35,20,15][i], Math.max(0, Math.round(x/sumI*score))));
+        let diff = score - sc2.reduce((a,b)=>a+b,0);
+        for (let g=0; diff!==0&&g<200; g++) {
+            const caps=[30,35,20,15];
+            if (diff>0) { const i=caps.findIndex((c,j)=>sc2[j]<c); if(i<0)break; sc2[i]++;diff--; }
+            else { const i=sc2.findIndex(s=>s>0); if(i<0)break; sc2[i]--;diff++; }
+        }
+
+        const grade = score>=85?{label:'우수',cls:'grade-excellent'}
+                    : score>=70?{label:'양호',cls:'grade-good'}
+                    : score>=50?{label:'보통',cls:'grade-average'}
+                    : {label:'주의',cls:'grade-caution'};
+
+        return {
+            id:p.id||'', name:p.name||'', brand:p.brand||'',
+            category:p.category||'기타', weight:p.packSize||p.weight||'',
+            price:p.price||null, image:p.image||'',
+            coupangUrl:p.coupangUrl||'', emartUrl:'',
+            source: p.coupangUrl?'coupang':'sample',
+            manufacturer:'', certifications:certs,
+            haccp:certs.includes('HACCP'), adminActions:0, recallCount:0,
+            score, grade:grade.label, gradeClass:grade.cls,
+            bd:{
+                main:{ score:sc2[0], max:30, text: mi.percent!=null?`${mi.name} ${mi.percent}%`:mi.name||'정보없음' },
+                add: { score:sc2[1], max:35, text:addText||'첨가물 없음', items:[] },
+                cert:{ score:sc2[2], max:20, text:certOnly.length?certOnly.join('·'):'없음' },
+                hyg: { score:sc2[3], max:15, text:certs.includes('HACCP')?'HACCP':'기본' }
+            },
+            rank:0, categoryRank:0
+        };
+    }
+
+    function fmtIngr(p) {
+        if (p.main_ingredient && p.main_ingredient_pct)
+            return `${p.main_ingredient} ${p.main_ingredient_pct}%`;
+        if (p.main_ingredient) return p.main_ingredient;
+        return '정보없음';
+    }
+
+    function fmtAdditives(p) {
+        const items = ((p.score||{}).breakdown||{}).additive?.items || [];
+        if (items.length === 0) return (p.additives_raw||'').trim() || '첨가물 없음';
+        return items.map(i=>i.name).join('·') || '첨가물 없음';
+    }
+
+    /* ────────── 렌더링 ────────── */
+    function getAdditiveTagsHtml(bd) {
+        const items = bd.add.items || [];
+        if (items.length === 0) {
+            const text = bd.add.text || '';
+            // 텍스트 기반 위험 감지
+            const tokens = text.split(/[·,]/).map(t=>t.trim()).filter(Boolean);
+            const dangerTokens = tokens.filter(t => HIGH_RISK.some(r => t.includes(r)));
+            const warnTokens   = tokens.filter(t => !HIGH_RISK.some(r=>t.includes(r)) && MED_RISK.some(r=>t.includes(r)));
+            if (!dangerTokens.length && !warnTokens.length) return '';
+            return `<div class="additive-tags">`
+                + dangerTokens.slice(0,3).map(t=>`<span class="additive-tag tag-danger">⚠ ${t}</span>`).join('')
+                + warnTokens.slice(0,3).map(t=>`<span class="additive-tag tag-warning">△ ${t}</span>`).join('')
+                + `</div>`;
+        }
+        const danger = items.filter(i=>i.penalty>=7).slice(0,3);
+        const warn   = items.filter(i=>i.penalty>=4&&i.penalty<7).slice(0,3);
+        if (!danger.length && !warn.length) return '';
+        return `<div class="additive-tags">`
+            + danger.map(i=>`<span class="additive-tag tag-danger">⚠ ${i.name}</span>`).join('')
+            + warn.map(i=>`<span class="additive-tag tag-warning">△ ${i.name}</span>`).join('')
+            + `</div>`;
+    }
+
+    function getSourceBadges(p) {
+        const badges = [];
+        if (p.coupangUrl) badges.push(`<span class="source-badge badge-coupang">쿠팡</span>`);
+        if (p.emartUrl)   badges.push(`<span class="source-badge badge-emart">이마트</span>`);
+        return badges.length ? `<div class="source-badges">${badges.join('')}</div>` : '';
+    }
+
+    function getBuyButton(p) {
+        if (p.coupangUrl) {
+            return `<a href="${esc(p.coupangUrl)}" target="_blank" rel="noopener noreferrer sponsored" class="coupang-btn">쿠팡 구매</a>`;
+        }
+        if (p.emartUrl) {
+            return `<a href="${esc(p.emartUrl)}" target="_blank" rel="noopener noreferrer" class="coupang-btn" style="background:#1b5ea8">이마트 구매</a>`;
+        }
+        const q = encodeURIComponent(p.name);
+        return `<a href="https://www.coupang.com/np/search?q=${q}" target="_blank" rel="noopener noreferrer" class="coupang-btn">검색 구매</a>`;
+    }
+
+    function metricRowHtml(key, val, score, max) {
+        const pct = max > 0 ? Math.min(100, (score/max)*100) : 0;
+        return `<div class="metric-row">
+            <div class="metric-row-label">
+                <span class="metric-k">${key}</span>
+                <span class="metric-v">${esc(val)}</span>
+            </div>
+            <div class="metric-score-side">
+                <span class="metric-fraction">${score}점 <span class="metric-max">/ ${max}점</span></span>
+                <div class="metric-bar"><span class="metric-bar-fill" style="width:${pct}%"></span></div>
+            </div>
+        </div>`;
+    }
+
+    function thumbHtml(p) {
+        if (p.image) return `<img src="${esc(p.image)}" alt="" loading="lazy" onerror="this.style.display='none'">`;
+        return `<span class="product-thumb-emoji">${CATEGORY_EMOJI[p.category]||'📦'}</span>`;
+    }
+
+    function priceHtml(p) {
+        if (!p.price) return '';
+        return `<span class="meta-sep">·</span><span class="product-pack">${p.price.toLocaleString()}원</span>`;
+    }
+
+    function gaugeStrokeCls(gradeClass) {
+        if (gradeClass==='grade-good'||gradeClass==='grade-average') return 'gauge-fill gauge-good';
+        if (gradeClass==='grade-caution') return 'gauge-fill gauge-caution';
+        return 'gauge-fill';
+    }
+
+    function esc(s) {
+        return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function renderPage() {
+        const list = document.getElementById('productList');
+        const emptyState = document.getElementById('emptyState');
+        const pagBar = document.getElementById('paginationBar');
+
+        list.innerHTML = '';
+        pagBar.innerHTML = '';
+        pagBar.classList.add('hidden');
+
+        if (filtered.length === 0) {
+            emptyState.classList.remove('hidden');
+            return;
+        }
+        emptyState.classList.add('hidden');
+
+        const start = (currentPage - 1) * PAGE_SIZE;
+        const end   = start + PAGE_SIZE;
+        const page  = filtered.slice(start, end);
+
+        const R = 26, len = 2 * Math.PI * R;
+
+        page.forEach((p, idx) => {
+            const globalIdx = start + idx;
+            const rankNum   = globalIdx + 1;
+            const rankCls   = `rank-${Math.min(rankNum, 6)}`;
+            const gOff      = len * (1 - p.score / 100);
+            const sCls      = gaugeStrokeCls(p.gradeClass);
+            const addTags   = getAdditiveTagsHtml(p.bd);
+            const srcBadges = getSourceBadges(p);
+            const buyBtn    = getBuyButton(p);
+
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <div class="card-row-image">
+                    <span class="rank-badge ${rankCls}">${rankNum}</span>
+                    <div class="product-thumb">${thumbHtml(p)}</div>
+                </div>
+                <div class="card-center-cluster">
+                    <div class="card-row-title-block">
+                        <div class="product-info">
+                            <h3>${esc(p.name)}</h3>
+                            <p class="product-subline">
+                                <span class="product-brand">${esc(p.brand)}</span>
+                                ${p.weight?`<span class="meta-sep">·</span><span class="product-pack">${esc(p.weight)}</span>`:''}
+                                ${priceHtml(p)}
+                            </p>
+                            ${srcBadges}
+                        </div>
                     </div>
-                    <div class="metric-score-side">
-                        <span class="metric-fraction">[ ${score}점 <span class="metric-max">/ ${max}점</span> ]</span>
-                        <div class="metric-bar" role="presentation"><span class="metric-bar-fill" style="width:${pct}%"></span></div>
+                    <div class="card-row-metrics-block">
+                        <div class="card-center-divider"></div>
+                        <div class="score-metrics">
+                            ${metricRowHtml('주원료:', p.bd.main.text, p.bd.main.score, p.bd.main.max)}
+                            ${metricRowHtml('첨가물:', p.bd.add.text, p.bd.add.score, p.bd.add.max)}
+                            ${addTags}
+                            ${metricRowHtml('인증:', p.bd.cert.text, p.bd.cert.score, p.bd.cert.max)}
+                            ${metricRowHtml('위생:', p.bd.hyg.text, p.bd.hyg.score, p.bd.hyg.max)}
+                        </div>
                     </div>
                 </div>
-            `;
-        }
-
-        function gaugeStrokeClass(gradeClass) {
-            if (gradeClass === 'grade-good') return 'gauge-fill gauge-good';
-            if (gradeClass === 'grade-caution') return 'gauge-fill gauge-caution';
-            return 'gauge-fill';
-        }
-
-        function getCoupangUrl(product) {
-            if (product.coupangUrl && String(product.coupangUrl).trim()) {
-                return String(product.coupangUrl).trim();
-            }
-            const q = `${product.name} ${product.packSize}`.trim();
-            return 'https://www.coupang.com/np/search?q=' + encodeURIComponent(q);
-        }
-
-        function thumbInnerHTML(product) {
-            const src = product.image && String(product.image).trim();
-            if (src) {
-                return `<img src="${src}" alt="${product.name}">`;
-            }
-            const emoji = CATEGORY_EMOJI[product.category] || '📦';
-            return `<span class="product-thumb-emoji" aria-hidden="true">${emoji}</span>`;
-        }
-
-        function renderProducts(filteredProducts) {
-            const list = document.getElementById('productList');
-            const emptyState = document.getElementById('emptyState');
-
-            list.innerHTML = '';
-
-            if (filteredProducts.length === 0) {
-                emptyState.classList.remove('hidden');
-                return;
-            }
-
-            emptyState.classList.add('hidden');
-
-            filteredProducts.forEach((product, index) => {
-                const grade = getGrade(product.score);
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.dataset.name = product.name;
-                card.dataset.category = product.category;
-
-                const rankClass = `rank-${Math.min(index + 1, 6)}`;
-
-                const bd = computeScoreBreakdown(product);
-                const thumbHtml = thumbInnerHTML(product);
-                const gaugeR = 26;
-                const gaugeLen = 2 * Math.PI * gaugeR;
-                const gaugeOff = gaugeLen * (1 - product.score / 100);
-                const strokeCls = gaugeStrokeClass(grade.class);
-
-                card.innerHTML = `
-                    <div class="card-row-image">
-                        <span class="rank-badge ${rankClass}" aria-label="순위 ${index + 1}">${index + 1}</span>
-                        <div class="product-thumb">${thumbHtml}</div>
-                    </div>
-                    <div class="card-center-cluster">
-                        <div class="card-row-title-block">
-                            <div class="product-info">
-                                <h3>${product.name}</h3>
-                                <p class="product-subline"><span class="product-brand">${product.brand}</span><span class="meta-sep">·</span><span class="product-pack">${product.packSize}</span></p>
-                            </div>
-                        </div>
-                        <div class="card-row-metrics-block">
-                            <div class="card-center-divider" aria-hidden="true"></div>
-                            <div class="score-metrics" role="group" aria-label="세부 점수">
-                                ${metricRowHtml('주원료:', bd.main.text, bd.main.score, bd.main.max)}
-                                ${metricRowHtml('첨가물:', bd.additive.text, bd.additive.score, bd.additive.max)}
-                                ${metricRowHtml('인증:', bd.cert.text, bd.cert.score, bd.cert.max)}
-                                ${metricRowHtml('위생:', bd.hygiene.text, bd.hygiene.score, bd.hygiene.max)}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-aside-cluster">
-                        <div class="card-gauge-col">
-                            <div class="score-gauge-stack">
-                                <div class="score-gauge-wrap" role="img" aria-label="최종 점수 ${product.score}점 만점 100">
-                                    <svg viewBox="0 0 64 64" aria-hidden="true">
-                                        <circle class="gauge-bg" cx="32" cy="32" r="${gaugeR}" />
-                                        <circle class="${strokeCls}" cx="32" cy="32" r="${gaugeR}"
-                                            stroke-dasharray="${gaugeLen}"
-                                            stroke-dashoffset="${gaugeOff}" />
-                                    </svg>
-                                    <div class="gauge-center">
-                                        <span class="gauge-score-num">${product.score}</span>
-                                        <span class="gauge-score-unit">점</span>
-                                    </div>
+                <div class="card-aside-cluster">
+                    <div class="card-gauge-col">
+                        <div class="score-gauge-stack">
+                            <div class="score-gauge-wrap">
+                                <svg viewBox="0 0 64 64" aria-hidden="true">
+                                    <circle class="gauge-bg" cx="32" cy="32" r="${R}"/>
+                                    <circle class="${sCls}" cx="32" cy="32" r="${R}"
+                                        stroke-dasharray="${len}" stroke-dashoffset="${gOff}"/>
+                                </svg>
+                                <div class="gauge-center">
+                                    <span class="gauge-score-num">${p.score}</span>
+                                    <span class="gauge-score-unit">점</span>
                                 </div>
-                                <span class="grade-badge ${grade.class}">${grade.label}</span>
                             </div>
+                            <span class="grade-badge ${p.gradeClass}">${p.grade}</span>
                         </div>
-                        <a href="${getCoupangUrl(product)}" target="_blank" rel="noopener noreferrer" class="coupang-btn">구매</a>
                     </div>
-                `;
-
-                list.appendChild(card);
-            });
-        }
-
-        function filterProducts() {
-            const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
-            const activeCategory = document.querySelector('.category-btn.active').dataset.category;
-
-            let filtered = products.filter(p => {
-                const haystack = [p.name, p.brand, p.packSize, p.category].join(' ').toLowerCase();
-                const matchSearch = !searchTerm || haystack.includes(searchTerm);
-                const matchCategory = activeCategory === '전체' || p.category === activeCategory;
-                return matchSearch && matchCategory;
-            });
-
-            filtered.sort((a, b) => b.score - a.score);
-            renderProducts(filtered);
-        }
-
-        document.getElementById('searchInput').addEventListener('input', filterProducts);
-
-        document.querySelectorAll('.category-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.category-btn').forEach(b => {
-                    b.classList.remove('active');
-                    b.setAttribute('aria-selected', 'false');
-                });
-                btn.classList.add('active');
-                btn.setAttribute('aria-selected', 'true');
-                filterProducts();
-            });
+                    ${buyBtn}
+                </div>`;
+            list.appendChild(card);
         });
 
-        filterProducts();
+        // 페이지네이션
+        const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+        if (totalPages > 1) {
+            pagBar.classList.remove('hidden');
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'page-btn';
+            prevBtn.textContent = '‹';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.onclick = () => { currentPage--; renderPage(); scrollTo({top:0,behavior:'smooth'}); };
+            pagBar.appendChild(prevBtn);
+
+            const maxShow = 5;
+            let pStart = Math.max(1, currentPage - 2);
+            let pEnd   = Math.min(totalPages, pStart + maxShow - 1);
+            if (pEnd - pStart < maxShow - 1) pStart = Math.max(1, pEnd - maxShow + 1);
+
+            for (let pg = pStart; pg <= pEnd; pg++) {
+                const btn = document.createElement('button');
+                btn.className = 'page-btn' + (pg === currentPage ? ' active' : '');
+                btn.textContent = pg;
+                const _pg = pg;
+                btn.onclick = () => { currentPage = _pg; renderPage(); scrollTo({top:0,behavior:'smooth'}); };
+                pagBar.appendChild(btn);
+            }
+
+            const nextBtn = document.createElement('button');
+            nextBtn.className = 'page-btn';
+            nextBtn.textContent = '›';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.onclick = () => { currentPage++; renderPage(); scrollTo({top:0,behavior:'smooth'}); };
+            pagBar.appendChild(nextBtn);
+
+            const info = document.createElement('span');
+            info.style.cssText = 'font-size:.72rem;color:var(--text-muted);margin-left:4px;';
+            info.textContent = `${filtered.length}개`;
+            pagBar.appendChild(info);
+        }
+    }
+
+    /* ────────── 필터·정렬 ────────── */
+    function applyFilters() {
+        const q    = document.getElementById('searchInput').value.trim().toLowerCase();
+        const cat  = document.querySelector('.category-btn.active')?.dataset.category || '전체';
+
+        filtered = allProducts.filter(p => {
+            const hay = [p.name, p.brand, p.weight, p.category, p.manufacturer].join(' ').toLowerCase();
+            const matchQ   = !q || hay.includes(q);
+            const matchCat = cat === '전체' || p.category === cat;
+            return matchQ && matchCat;
+        });
+
+        // 정렬
+        if (currentSort === 'score') {
+            filtered.sort((a, b) => b.score - a.score);
+        } else if (currentSort === 'price_asc') {
+            filtered.sort((a, b) => (a.price||999999) - (b.price||999999));
+        } else {
+            filtered.sort((a, b) => (b.price||0) - (a.price||0));
+        }
+
+        currentPage = 1;
+        renderPage();
+    }
+
+    /* ────────── 카테고리 탭 동적 생성 ────────── */
+    function buildCategoryTabs() {
+        const cats = ['전체', ...new Set(allProducts.map(p => p.category))];
+        const tabBar = document.getElementById('categoryTabs');
+        tabBar.innerHTML = '';
+        cats.forEach(cat => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'category-btn' + (cat === '전체' ? ' active' : '');
+            btn.dataset.category = cat;
+            btn.setAttribute('role', 'tab');
+            btn.setAttribute('aria-selected', cat === '전체' ? 'true' : 'false');
+            btn.textContent = (CATEGORY_EMOJI[cat] ? CATEGORY_EMOJI[cat] + ' ' : '') + cat;
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.category-btn').forEach(b => {
+                    b.classList.remove('active'); b.setAttribute('aria-selected','false');
+                });
+                btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+                applyFilters();
+            });
+            tabBar.appendChild(btn);
+        });
+    }
+
+    /* ────────── 초기화 ────────── */
+    async function init() {
+        document.getElementById('loadingState').classList.remove('hidden');
+        await loadData();
+        document.getElementById('loadingState').classList.add('hidden');
+
+        buildCategoryTabs();
+        applyFilters();
+
+        document.getElementById('searchInput').addEventListener('input', () => applyFilters());
+
+        document.querySelectorAll('.sort-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentSort = btn.dataset.sort;
+                applyFilters();
+            });
+        });
+    }
+
+    /* ────────── 내장 샘플 데이터 ────────── */
+    const SAMPLE_PRODUCTS = [
+        { name:'목우촌 주부9단 그릴후랑크', packSize:'200g', score:88, category:'가공육', brand:'목우촌',
+          coupangUrl:'https://link.coupang.com/a/d9na8N', image:'',
+          mainIngredient:{name:'돼지고기',percent:82}, additives:'아질산나트륨·인산염', certifications:['무항생제','HACCP'] },
+        { name:'하림 닭가슴살 소시지', packSize:'150g', score:86, category:'가공육', brand:'하림',
+          coupangUrl:'', image:'',
+          mainIngredient:{name:'닭고기',percent:85}, additives:'인산염', certifications:['무항생제'] },
+        { name:'롯데 의성마늘햄', packSize:'200g', score:82, category:'가공육', brand:'롯데',
+          coupangUrl:'', image:'',
+          mainIngredient:{name:'돼지고기',percent:70}, additives:'아질산나트륨·인산염', certifications:[] },
+        { name:'동원 리얼 치킨 비엔나', packSize:'150g', score:72, category:'가공육', brand:'동원',
+          coupangUrl:'', image:'',
+          mainIngredient:{name:'닭고기',percent:62}, additives:'MSG·아질산나트륨·착색료', certifications:[] },
+        { name:'CJ 스팸 클래식', packSize:'340g', score:58, category:'가공육', brand:'CJ',
+          coupangUrl:'', image:'',
+          mainIngredient:{name:'돼지고기',percent:52}, additives:'아질산나트륨·인산염·MSG·착색료·보존료', certifications:[] },
+        { name:'제주 100% 감귤착즙주스', packSize:'1000ml', score:94, category:'음료', brand:'제주',
+          coupangUrl:'', image:'',
+          mainIngredient:{name:'감귤과즙',percent:100}, additives:'', certifications:['유기농'] },
+        { name:'서울우유 흰우유', packSize:'1000ml', score:90, category:'음료', brand:'서울우유협동조합',
+          coupangUrl:'', image:'',
+          mainIngredient:{name:'원유',percent:100}, additives:'', certifications:['HACCP'] },
+        { name:'매일유업 바이오거트 플레인', packSize:'450g', score:87, category:'음료', brand:'매일유업',
+          coupangUrl:'', image:'',
+          mainIngredient:{name:'원유',percent:85}, additives:'', certifications:['무항생제'] },
+        { name:'웅진 자연은 사과', packSize:'1000ml', score:85, category:'음료', brand:'웅진식품',
+          coupangUrl:'', image:'',
+          mainIngredient:{name:'사과과즙',percent:100}, additives:'', certifications:[] },
+        { name:'롯데칠성 칠성사이다', packSize:'500ml', score:52, category:'음료', brand:'롯데칠성',
+          coupangUrl:'', image:'',
+          mainIngredient:{name:'탄산수',percent:null}, additives:'액상과당·구연산·향료', certifications:[] },
+        { name:'코카콜라', packSize:'500ml', score:44, category:'음료', brand:'코카콜라음료',
+          coupangUrl:'', image:'',
+          mainIngredient:{name:'탄산수',percent:null}, additives:'액상과당·카라멜색소·인산·향료', certifications:[] },
+    ];
+
+    init();
     </script>
 </body>
 </html>
