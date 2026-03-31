@@ -1,0 +1,442 @@
+{
+  "_comment": "식품첨가물 안전성 데이터베이스 - 식약처 식품첨가물공전 + IARC/WHO 기준",
+  "_scoring": "penalty: 0(안전) ~ 10(위험), category: preservative/coloring/sweetener/flavor/antioxidant/emulsifier/etc",
+  "additives": {
+    "아질산나트륨": {
+      "en": "Sodium Nitrite",
+      "code": "E250",
+      "category": "preservative",
+      "penalty": 7,
+      "concern": "IARC 2A - 아질산염은 체내에서 니트로사민으로 변환될 수 있음. 가공육 발암 연관성",
+      "allowed_foods": ["가공육", "어육제품"],
+      "max_ppm": 70
+    },
+    "아질산칼륨": {
+      "en": "Potassium Nitrite",
+      "code": "E249",
+      "category": "preservative",
+      "penalty": 7,
+      "concern": "IARC 2A - 아질산나트륨과 동일 우려",
+      "allowed_foods": ["가공육"],
+      "max_ppm": 70
+    },
+    "질산나트륨": {
+      "en": "Sodium Nitrate",
+      "code": "E251",
+      "category": "preservative",
+      "penalty": 5,
+      "concern": "체내 아질산염으로 환원 가능",
+      "allowed_foods": ["치즈", "가공육"],
+      "max_ppm": 500
+    },
+    "소르빈산": {
+      "en": "Sorbic Acid",
+      "code": "E200",
+      "category": "preservative",
+      "penalty": 2,
+      "concern": "일반적으로 안전(GRAS). 고농도시 소화장애 가능성",
+      "allowed_foods": ["음료", "잼", "치즈"],
+      "max_ppm": 1000
+    },
+    "소르빈산칼륨": {
+      "en": "Potassium Sorbate",
+      "code": "E202",
+      "category": "preservative",
+      "penalty": 2,
+      "concern": "일반적으로 안전. 일부 피부 과민 가능성",
+      "max_ppm": 1000
+    },
+    "소르빈산칼슘": {
+      "en": "Calcium Sorbate",
+      "code": "E203",
+      "category": "preservative",
+      "penalty": 2,
+      "concern": "소르빈산과 동일",
+      "max_ppm": 1000
+    },
+    "안식향산": {
+      "en": "Benzoic Acid",
+      "code": "E210",
+      "category": "preservative",
+      "penalty": 4,
+      "concern": "비타민C와 결합 시 벤젠 생성 가능. 어린이 과잉행동 연관 논란",
+      "max_ppm": 600
+    },
+    "안식향산나트륨": {
+      "en": "Sodium Benzoate",
+      "code": "E211",
+      "category": "preservative",
+      "penalty": 4,
+      "concern": "비타민C+아스코르브산 혼합 시 벤젠 생성. 어린이 ADHD 연관 논란",
+      "max_ppm": 600
+    },
+    "프로피온산": {
+      "en": "Propionic Acid",
+      "code": "E280",
+      "category": "preservative",
+      "penalty": 2,
+      "concern": "일반적으로 안전",
+      "max_ppm": 2500
+    },
+    "프로피온산나트륨": {
+      "en": "Sodium Propionate",
+      "code": "E281",
+      "category": "preservative",
+      "penalty": 2,
+      "concern": "일반적으로 안전",
+      "max_ppm": 2500
+    },
+    "인산": {
+      "en": "Phosphoric Acid",
+      "code": "E338",
+      "category": "acidity_regulator",
+      "penalty": 3,
+      "concern": "과량 섭취 시 칼슘 흡수 방해, 골밀도 저하 우려",
+      "max_ppm": null
+    },
+    "인산나트륨": {
+      "en": "Sodium Phosphate",
+      "code": "E339",
+      "category": "emulsifier",
+      "penalty": 3,
+      "concern": "인산과 동일 우려. 신장 기능 저하자 주의",
+      "max_ppm": null
+    },
+    "인산칼슘": {
+      "en": "Calcium Phosphate",
+      "code": "E341",
+      "category": "emulsifier",
+      "penalty": 2,
+      "concern": "일반적으로 안전",
+      "max_ppm": null
+    },
+    "폴리인산나트륨": {
+      "en": "Sodium Polyphosphate",
+      "code": "E452",
+      "category": "emulsifier",
+      "penalty": 3,
+      "concern": "인산과 동일 우려. 가공육에 다량 사용",
+      "max_ppm": null
+    },
+    "인산염": {
+      "en": "Phosphate (generic)",
+      "code": "E338-452",
+      "category": "emulsifier",
+      "penalty": 3,
+      "concern": "인산염 계열 총칭. 신장 부담 가능성",
+      "max_ppm": null
+    },
+    "MSG": {
+      "en": "Monosodium Glutamate",
+      "code": "E621",
+      "category": "flavor_enhancer",
+      "penalty": 3,
+      "concern": "FDA GRAS 인정. 일부 민감자 '중국 음식 증후군' 보고. 과학적 근거 논쟁 중",
+      "max_ppm": null
+    },
+    "글루탐산나트륨": {
+      "en": "Monosodium Glutamate",
+      "code": "E621",
+      "category": "flavor_enhancer",
+      "penalty": 3,
+      "concern": "MSG와 동일",
+      "max_ppm": null
+    },
+    "이노신산나트륨": {
+      "en": "Disodium Inosinate",
+      "code": "E631",
+      "category": "flavor_enhancer",
+      "penalty": 2,
+      "concern": "통풍 환자 주의 (퓨린 함유)",
+      "max_ppm": null
+    },
+    "구아닐산나트륨": {
+      "en": "Disodium Guanylate",
+      "code": "E627",
+      "category": "flavor_enhancer",
+      "penalty": 2,
+      "concern": "통풍 환자 주의",
+      "max_ppm": null
+    },
+    "타르색소": {
+      "en": "Tar Dyes (generic)",
+      "code": "E102-155",
+      "category": "coloring",
+      "penalty": 6,
+      "concern": "어린이 과잉행동 연관(Southampton 연구). 일부 EU 경고 표시 의무화",
+      "max_ppm": null
+    },
+    "착색료": {
+      "en": "Food Coloring (generic)",
+      "code": "various",
+      "category": "coloring",
+      "penalty": 4,
+      "concern": "종류에 따라 다름. 합성착색료는 주의",
+      "max_ppm": null
+    },
+    "황색4호": {
+      "en": "Tartrazine",
+      "code": "E102",
+      "category": "coloring",
+      "penalty": 7,
+      "concern": "어린이 과잉행동 연관. EU 경고 라벨 의무화. 아스피린 알레르기 교차반응",
+      "max_ppm": 100
+    },
+    "황색5호": {
+      "en": "Sunset Yellow FCF",
+      "code": "E110",
+      "category": "coloring",
+      "penalty": 6,
+      "concern": "어린이 과잉행동 연관. EU 경고 라벨 의무화",
+      "max_ppm": 100
+    },
+    "적색2호": {
+      "en": "Amaranth",
+      "code": "E123",
+      "category": "coloring",
+      "penalty": 7,
+      "concern": "미국 FDA 금지. 동물실험에서 발암성 의심",
+      "max_ppm": 100
+    },
+    "적색40호": {
+      "en": "Allura Red AC",
+      "code": "E129",
+      "category": "coloring",
+      "penalty": 6,
+      "concern": "어린이 과잉행동 연관 논란",
+      "max_ppm": 100
+    },
+    "청색1호": {
+      "en": "Brilliant Blue FCF",
+      "code": "E133",
+      "category": "coloring",
+      "penalty": 5,
+      "concern": "일부 동물실험 우려. EU 경고 라벨",
+      "max_ppm": 100
+    },
+    "카라멜색소": {
+      "en": "Caramel Color",
+      "code": "E150",
+      "category": "coloring",
+      "penalty": 4,
+      "concern": "4-MEI 생성 우려(Class III, IV). IARC 2B 잠재적 발암물질",
+      "max_ppm": null
+    },
+    "이산화티타늄": {
+      "en": "Titanium Dioxide",
+      "code": "E171",
+      "category": "coloring",
+      "penalty": 7,
+      "concern": "IARC 2B. EU 2022년 식품용 사용 금지. 나노입자 세포독성 우려",
+      "max_ppm": null
+    },
+    "아스파탐": {
+      "en": "Aspartame",
+      "code": "E951",
+      "category": "sweetener",
+      "penalty": 5,
+      "concern": "IARC 2B(2023). 페닐케톤뇨증 환자 금지. 장기 안전성 논쟁 중",
+      "max_ppm": 600
+    },
+    "사카린": {
+      "en": "Saccharin",
+      "code": "E954",
+      "category": "sweetener",
+      "penalty": 4,
+      "concern": "과거 발암 의심(방광암). 현재 FDA 안전 재분류. 장내 미생물 영향 연구 있음",
+      "max_ppm": 160
+    },
+    "사카린나트륨": {
+      "en": "Sodium Saccharin",
+      "code": "E954",
+      "category": "sweetener",
+      "penalty": 4,
+      "concern": "사카린과 동일",
+      "max_ppm": 160
+    },
+    "수크랄로스": {
+      "en": "Sucralose",
+      "code": "E955",
+      "category": "sweetener",
+      "penalty": 3,
+      "concern": "고온 조리 시 유해물질 생성 가능. 장내 미생물 변화 연구 있음",
+      "max_ppm": null
+    },
+    "스테비올배당체": {
+      "en": "Steviol Glycosides",
+      "code": "E960",
+      "category": "sweetener",
+      "penalty": 1,
+      "concern": "천연 유래. 일반적으로 안전",
+      "max_ppm": null
+    },
+    "액상과당": {
+      "en": "High Fructose Corn Syrup",
+      "code": "HFCS",
+      "category": "sweetener",
+      "penalty": 5,
+      "concern": "비만, 대사증후군, 인슐린 저항성 연관 강한 역학 증거",
+      "max_ppm": null
+    },
+    "과당": {
+      "en": "Fructose",
+      "code": "—",
+      "category": "sweetener",
+      "penalty": 3,
+      "concern": "과량 섭취 시 간 지방 축적 가능",
+      "max_ppm": null
+    },
+    "BHA": {
+      "en": "Butylated Hydroxyanisole",
+      "code": "E320",
+      "category": "antioxidant",
+      "penalty": 6,
+      "concern": "IARC 2B 잠재적 발암물질. 동물실험 위암 증가",
+      "max_ppm": 200
+    },
+    "BHT": {
+      "en": "Butylated Hydroxytoluene",
+      "code": "E321",
+      "category": "antioxidant",
+      "penalty": 5,
+      "concern": "호르몬 교란 가능성. 일부 동물실험 우려",
+      "max_ppm": 200
+    },
+    "에리토르브산나트륨": {
+      "en": "Sodium Erythorbate",
+      "code": "E316",
+      "category": "antioxidant",
+      "penalty": 1,
+      "concern": "비타민C 이성질체. 일반적으로 안전",
+      "max_ppm": null
+    },
+    "아스코르브산": {
+      "en": "Ascorbic Acid (Vitamin C)",
+      "code": "E300",
+      "category": "antioxidant",
+      "penalty": 0,
+      "concern": "안전. 비타민C",
+      "max_ppm": null
+    },
+    "구연산": {
+      "en": "Citric Acid",
+      "code": "E330",
+      "category": "acidity_regulator",
+      "penalty": 1,
+      "concern": "일반적으로 안전. 과량 시 치아 부식 가능",
+      "max_ppm": null
+    },
+    "향료": {
+      "en": "Flavorings (generic)",
+      "code": "E620-640",
+      "category": "flavor",
+      "penalty": 2,
+      "concern": "성분 미공개 경우 많음. 천연/합성 혼재",
+      "max_ppm": null
+    },
+    "합성향료": {
+      "en": "Artificial Flavorings",
+      "code": "various",
+      "category": "flavor",
+      "penalty": 3,
+      "concern": "성분 미공개. 일부 알레르기 유발 가능",
+      "max_ppm": null
+    },
+    "유화제": {
+      "en": "Emulsifiers (generic)",
+      "code": "E400-499",
+      "category": "emulsifier",
+      "penalty": 2,
+      "concern": "종류에 따라 다름. 장내 미생물 영향 연구 있음",
+      "max_ppm": null
+    },
+    "레시틴": {
+      "en": "Lecithin",
+      "code": "E322",
+      "category": "emulsifier",
+      "penalty": 1,
+      "concern": "대두/해바라기 유래. 일반적으로 안전",
+      "max_ppm": null
+    },
+    "카라기난": {
+      "en": "Carrageenan",
+      "code": "E407",
+      "category": "thickener",
+      "penalty": 4,
+      "concern": "장 염증 유발 가능성(동물실험). 분해 카라기난은 IARC 2B",
+      "max_ppm": null
+    },
+    "잔탄검": {
+      "en": "Xanthan Gum",
+      "code": "E415",
+      "category": "thickener",
+      "penalty": 1,
+      "concern": "일반적으로 안전",
+      "max_ppm": null
+    },
+    "카르복시메틸셀룰로스": {
+      "en": "Carboxymethyl Cellulose",
+      "code": "E466",
+      "category": "thickener",
+      "penalty": 3,
+      "concern": "장내 미생물 변화 및 장 염증 유발 가능성(동물실험)",
+      "max_ppm": null
+    },
+    "폴리소르베이트80": {
+      "en": "Polysorbate 80",
+      "code": "E433",
+      "category": "emulsifier",
+      "penalty": 4,
+      "concern": "장내 미생물 변화 및 장 염증 유발 가능성(동물실험). 대사증후군 연관",
+      "max_ppm": null
+    },
+    "보존료": {
+      "en": "Preservatives (generic)",
+      "code": "various",
+      "category": "preservative",
+      "penalty": 3,
+      "concern": "종류 미상시 중간 위험으로 처리",
+      "max_ppm": null
+    },
+    "산화방지제": {
+      "en": "Antioxidants (generic)",
+      "code": "various",
+      "category": "antioxidant",
+      "penalty": 2,
+      "concern": "종류에 따라 다름",
+      "max_ppm": null
+    },
+    "증점제": {
+      "en": "Thickeners (generic)",
+      "code": "various",
+      "category": "thickener",
+      "penalty": 2,
+      "concern": "종류에 따라 다름",
+      "max_ppm": null
+    },
+    "팽창제": {
+      "en": "Leavening Agents (generic)",
+      "code": "various",
+      "category": "leavening",
+      "penalty": 1,
+      "concern": "일반적으로 안전",
+      "max_ppm": null
+    },
+    "산도조절제": {
+      "en": "Acidity Regulators (generic)",
+      "code": "various",
+      "category": "acidity_regulator",
+      "penalty": 1,
+      "concern": "일반적으로 안전",
+      "max_ppm": null
+    }
+  },
+  "penalty_description": {
+    "0": "매우 안전 (비타민 수준)",
+    "1-2": "안전 (GRAS 수준)",
+    "3-4": "보통 (주의 권고)",
+    "5-6": "우려 (제한 권고)",
+    "7-8": "높은 우려 (최소화 권고)",
+    "9-10": "위험 (회피 권고)"
+  }
+}
